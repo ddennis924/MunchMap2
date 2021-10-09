@@ -8,7 +8,7 @@
 - **recommend** a random visited or wish-listed restaurant for dinner based on ratings 
 - **sort** visited and wish-listed restaurants based on
   - *name*
-  - *location*
+  - *locations*
   - *rating*
   - *cuisine*
   - *price*
@@ -36,7 +36,7 @@ based on user preferences, eliminating the arduous process of choosing a place t
 
 - As a user, I want to be able to add a restaurant to my list of visited restaurants
 - As a user, I want to be able to see the number of visited and unvisited restaurants
-- As a user, i want to be able to view my list of restaurants
-- As a user, I want to be able to select and view a restaurant in detail
-- As a user, I want to be able to select a restaurant and modify its rating, location, price, description, and number of times eaten
-- As a user, i want to be able to sort my restaurant by rating, location, price, or visited
+- As a user, i want to be able to view my list of visited and unvisited restaurants
+- As a user, I want to be able to select a restaurant and modify its rating, locations, price, description, and number of times eaten
+- As a user, i want to be able to sort my visited restaurants by rating, locations, price, or visited
+- As a user, I want to be able to randomly view a restaurant above a specific rating or price
