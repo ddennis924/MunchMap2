@@ -1,5 +1,6 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -7,14 +8,16 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CuisineTest {
+    Cuisine c;
+    ArrayList<String> dishes;
 
-    @Test
-    public void setGetCuisineTest() {
-        ArrayList<String> dishes = new ArrayList<>();
-        Cuisine c = new Cuisine("German", dishes);
-
+    @BeforeEach
+    public void setUp() {
+        dishes = new ArrayList<>();
+        c = new Cuisine("German", dishes);
         assertFalse(c.containsDish("Sausage"));
         c.addDish("Sausage");
+        c.addDish("Pizza");
         c.addDish("Pizza");
 
         assertEquals("German",  c.getEthnicity());
@@ -22,11 +25,18 @@ public class CuisineTest {
         assertEquals("Pizza", c.getDishes().get(1));
         assertTrue(c.containsDish("Sausage"));
         assertFalse(c.containsDish("Apple"));
+    }
+    @Test
+    public void setGetCuisineTest() {
 
         c.setEthnicity("Korean");
 
         assertEquals("Korean", c.getEthnicity());
 
+    }
+
+    @Test
+    public void removeDishTest() {
         assertTrue(c.removeDish("Sausage"));
 
         assertEquals(1, c.getDishes().size());
@@ -44,5 +54,7 @@ public class CuisineTest {
 
         assertEquals(1, c.getDishes().size());
 
+        assertFalse(c.removeDish("Pizza"));
     }
+
 }

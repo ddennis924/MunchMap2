@@ -1,16 +1,17 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 // Represents a list of VisitedRestaurants
 public class RestaurantList {
-    private ArrayList<Restaurant> restaurants;
+    private final ArrayList<Restaurant> restaurants;
+
 
     // EFFECTS: Constructs an empty restaurant list
     public RestaurantList() {
         restaurants = new ArrayList<>();
     }
-
 
     public ArrayList<Restaurant> getRestaurants() {
         return restaurants;
@@ -19,7 +20,13 @@ public class RestaurantList {
     // REQUIRES: restaurant is in restaurants
     // EFFECTS: returns a restaurant with given name
     public Restaurant getRestaurant(String nm) {
-        return null;
+        Restaurant restaurant = null;
+        for (Restaurant r : restaurants) {
+            if (r.getName().equals(nm)) {
+                restaurant = r;
+            }
+        }
+        return restaurant;
     }
 
     // REQUIRES: restaurant is in restaurants
@@ -28,9 +35,16 @@ public class RestaurantList {
         return restaurants.get(i);
     }
 
-    // EFFECTS: returns true if restaurant is in restaurants
+    // EFFECTS: returns true if restaurant with name nm is in restaurants
     public boolean containsRestaurant(String nm) {
-        return false;
+        boolean found = false;
+        for (Restaurant r : restaurants) {
+            if (r.getName().equals(nm)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 
     // EFFECTS: returns size of restaurants
@@ -43,47 +57,92 @@ public class RestaurantList {
         return restaurants.indexOf(r);
     }
 
-    // REQUIRES: visited and unvisited restaurants are not empty
+    // REQUIRES: restaurants is not empty
     // EFFECTS: returns next visited restaurant at front of restaurants
     public Restaurant nextRestaurant() {
-        return null;
+        return restaurants.get(0);
     }
 
     // MODIFIES: this
-    // EFFECTS: Adds a restaurant restaurants
+    // EFFECTS: Adds a restaurant restaurants unless already in restaurants, then does nothing
     public void addRestaurant(Restaurant r) {
+        if (!restaurants.contains(r)) {
+            restaurants.add(r);
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: removes restaurant with String nm from restaurants returns true if restaurant removed,
     //          else returns false
     public boolean removeRestaurant(String nm) {
-        return false;
+        if (containsRestaurant(nm)) {
+            restaurants.remove(getRestaurant(nm));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: sorts lists of restaurants by cuisine ethnicity
+    // EFFECTS: returns a sorted list of restaurants by cuisine ethnicity
     public RestaurantList sortByCuisine(String nm) {
-        return null;
+        RestaurantList sortedList = new RestaurantList();
+        for (Restaurant r : restaurants) {
+            if (r.getCuisine().getEthnicity().equals(nm)) {
+                sortedList.addRestaurant(r);
+            }
+        }
+        for (Restaurant r : restaurants) {
+            sortedList.addRestaurant(r);
+        }
+        return sortedList;
     }
 
     // MODIFIES: this
-    // EFFECTS: sorts visited restaurants from the highest rating to lowest
+    // EFFECTS: returns a sorted list of visited restaurants from the highest rating to lowest
     public RestaurantList sortByRating() {
-        return null;
+        return null; // stub
     }
 
     // MODIFIES: this
-    // EFFECTS: sorts visited restaurants from the most expensive to cheapest
+    // EFFECTS: sorts a sorted list of visited restaurants from the most expensive to cheapest
     public RestaurantList sortByLuxury() {
         return null;
     }
 
     // MODIFIES: this
-    // EFFECTS: sorts visited restaurants from the cheapest to most expensive
+    // EFFECTS: sorts a sorted list of visited restaurants from the cheapest to most expensive
     public RestaurantList sortByCheapest() {
         return null;
     }
+
+    // EFFECTS: returns only restaurants in a specific area
+    public RestaurantList sortInLocation(String nm) {
+        RestaurantList sortedList = new RestaurantList();
+        for (Restaurant r : restaurants) {
+            for (Location l : r.getLocations()) {
+                if (l.getArea().equals(nm)) {
+                    sortedList.addRestaurant(r);
+                }
+            }
+        }
+        for (Restaurant r : restaurants) {
+            sortedList.addRestaurant(r);
+        }
+        return sortedList;
+    }
+
+    // EFFECTS: returns a RestaurantList of only visited restaurants from most visited to least
+    public RestaurantList sortByVisited() {
+        return null;
+    }
+
+    // EFFECTS: returns a RestaurantList of only unvisited restaurants
+    public RestaurantList sortByWishlist() {
+        return null;
+    }
+
+
 
     // REQUIRES: r must be a double between 0 and 10
     // EFFECTS: returns a random visited restaurant above rating r in the area l

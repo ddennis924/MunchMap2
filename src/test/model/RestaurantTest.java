@@ -7,231 +7,111 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RestaurantTest {
+public class RestaurantTest {
     Restaurant r1;
-    Restaurant r2;
-    Restaurant r3;
-    Restaurant r4;
-    RestaurantList rl1;
-    ArrayList<Location> mcLocations;
 
     @BeforeEach
-    public void Setup() {
-        mcLocations = new ArrayList<>();
-        mcLocations.add(new Location("1100 main mall", "UBC"));
-        mcLocations.add(new Location("2314 no 2 road", "Richmond"));
+    public void setUp() {
+        ArrayList<Location> r1locations = new ArrayList<>();
+        ArrayList<String> dishes = new ArrayList<>();
+        dishes.add("Bulgogi");
+        dishes.add("Kimchi");
+        Cuisine r1cuisine = new Cuisine("Korean", dishes);
+        r1locations.add(new Location("124 road", "UBC"));
+        r1 = new Restaurant("diner1", r1locations, r1cuisine, 0);
 
-        assertEquals(2, mcLocations.size());
-        assertEquals("1100 main mall", mcLocations.get(0).getAddress());
+        assertEquals(-1, r1.getPrice());
+        assertEquals(-1, r1.getRating());
+        assertEquals(r1cuisine, r1.getCuisine());
+        assertEquals("no review found", r1.getReview());
+        assertEquals(0, r1.getVisited());
+        assertEquals("diner1", r1.getName());
+        assertEquals(r1locations, r1.getLocations());
 
-        Cuisine mcCuisine = new Cuisine("FastFood", new ArrayList<>());
-        mcCuisine.addDish("Burgers");
-        mcCuisine.addDish("Fries");
-
-        assertEquals(2, mcCuisine.getDishes().size());
-        assertTrue(mcCuisine.containsDish("Burgers"));
-
-        r1 = new Restaurant("McDonald's", mcLocations, mcCuisine, 0);
-
-        ArrayList<Location> samLocations = new ArrayList<>();
-        samLocations.add(new Location("1111 no 2 road", "RBC"));
-
-        assertEquals(1, samLocations.size());
-
-        r2 = new Restaurant("Samsoonie", samLocations, new Cuisine("Korean", new ArrayList<>()),
-                6);
-
-        r2.setRating(7);
-        r2.setPrice(10);
-        r2.setReview("good food");
-
-        assertEquals("Samsoonie", r2.getName());
-        assertEquals("Korean", r2.getCuisine().toString());
-
-
-        ArrayList<Location> sakuLocations = new ArrayList<>();
-        sakuLocations.add(new Location("123 west ave", "Vancouver"));
-
-        Cuisine sakuCuisine = new Cuisine("Japanese", new ArrayList<>());
-        sakuCuisine.addDish("Bulgogi");
-        sakuCuisine.addDish("Pancakes");
-
-        assertEquals(2, sakuCuisine.getDishes().size());
-
-        sakuCuisine.removeDish("Pancakes");
-
-        assertFalse(sakuCuisine.containsDish("Pancakes"));
-        assertEquals(1, sakuCuisine.getDishes().size());
-
-
-        r3 = new Restaurant("Saku", sakuLocations, sakuCuisine, 0);
-
-        ArrayList<Location> suraLocations = new ArrayList<>();
-        suraLocations.add(new Location("6 road", "Vancouver"));
-        suraLocations.add(new Location("parliament", "Victoria"));
-
-        r4 = new Restaurant("Sura", suraLocations, new Cuisine("Korean", new ArrayList<>()), 0);
-
-        rl1 = new RestaurantList();
-
-        rl1.addRestaurant(r1);
-        rl1.addRestaurant(r2);
-        rl1.addRestaurant(r3);
-        rl1.addRestaurant(r4);
-
-        assertEquals(4, rl1.sizeOf());
-        assertEquals(0, rl1.indexOf(r1));
-        assertEquals(3, rl1.indexOf(r4));
-        assertTrue(rl1.containsRestaurant("Saku"));
-        assertTrue(rl1.containsRestaurant("Sura"));
-        assertEquals(r1, rl1.getRestaurant("McDonald's"));
+        assertFalse(r1.isVisited());
     }
 
     @Test
-    public void addRemoveLocationTest() {
-        r3.addLocation(new Location("456 east ave", "Vancouver"));
+    public void settersTest() {
+        r1.setName("diner4");
+        assertEquals("diner4", r1.getName());
 
-        assertEquals(2, r3.getLocations().size());
-        assertEquals("456 east ave", r3.getLocations().get(1).getAddress());
+        r1.setVisited(10);
 
-        r3.removeLocation("123 west ave");
+        assertTrue(r1.isVisited());
+        assertEquals(10, r1.getVisited());
 
-        assertEquals(1, r3.getLocations().size());
-        assertEquals("456 east ave", r3.getLocations().get(0).getAddress());
-        assertFalse(r3.locationIn("Richmond"));
+        r1.setReview("very good");
 
-        r3.addLocation(new Location("912 Alexandra road", "Richmond"));
+        assertEquals("very good", r1.getReview());
 
-        assertEquals(2, r3.getLocations().size());
-        assertTrue(r3.locationIn("Richmond"));
+        r1.setRating(3.0);
+        assertEquals(3.0, r1.getRating());
 
+        r1.setPrice(30.3);
+        assertEquals(30.3, r1.getPrice());
+
+        Cuisine german = new Cuisine("German", new ArrayList<>());
+
+        r1.setCuisine(german);
+        assertEquals("German", r1.getCuisine().getEthnicity());
+
+        r1.setCuisine(new Cuisine("Korean", new ArrayList<>()));
+
+    }
+    @Test
+    public void addLocationTest() {
+        assertFalse(r1.locationIn("Richmond"));
+
+        Location richmond = new Location("222 street", "Richmond");
+        r1.addLocation(richmond);
+        r1.addLocation(richmond);
+
+        assertTrue(r1.locationIn("Richmond"));
+        assertEquals(2, r1.getLocations().size());
+        assertEquals("222 street", r1.getLocations().get(1).getAddress());
+
+        r1.addLocation(new Location("333 road", "UBC"));
+
+        assertEquals(3, r1.getLocations().size());
     }
 
     @Test
-    public void setNameTest() {
-        r2.setName("Samsoona");
-        assertEquals("Samsoona", r2.getName());
+    public void removeLocationTest() {
+        addLocationTest();
+        assertFalse(r1.removeLocation("a"));
+        assertTrue(r1.removeLocation("124 road"));
 
-        r3.setName("poo");
-        assertEquals("poo", r3.getName());
+        assertEquals(2, r1.getLocations().size());
+
+        r1.addLocation(new Location("222 street", "Vancouver"));
+
+        assertEquals(3, r1.getLocations().size());
     }
 
     @Test
     public void visitTest() {
-        r2.visit(10,12);
-        double rate = (10.0+42.0)/7.0;
+        r1.visit(10.0,12.0);
 
-        assertEquals(rate, r2.getRating());
-        assertEquals(rate,r2.getPrice());
-        assertEquals(7, r2.getVisited());
+        assertEquals(10, r1.getRating());
+        assertEquals(12,r1.getPrice());
+        assertEquals(1, r1.getVisited());
 
-        assertFalse(r3.isVisited());
-        r3.visit(12,15);
+        assertTrue(r1.isVisited());
 
-        assertEquals("Saku",r3.getName());
-        assertEquals(12, r3.getRating());
-        assertEquals(15, r3.getPrice());
-        assertEquals(1, r3.getVisited());
+        r1.visit(8.0, 10.0);
 
-        assertTrue(r3.isVisited());
+        assertEquals(9, r1.getRating());
+        assertEquals(11, r1.getPrice());
+        assertEquals(2, r1.getVisited());
 
-        rl1.getRestaurant("Saku").visit(7, 30);
+        r1.visit(5.0, 12.5);
 
-        assertEquals(9.75, r3.getRating());
-        assertEquals(22.5, r3.getPrice());
-        assertEquals(2, r3.getVisited());
-
+        assertEquals(((5.0+9.0*2.0)/3), r1.getRating());
+        assertEquals(((12.5+11*2)/3),r1.getPrice());
+        assertEquals(3, r1.getVisited());
     }
 
-    @Test
-    public void removeRestaurantTest() {
-        assertFalse(rl1.removeRestaurant("A&W"));
-        assertEquals(4,rl1.sizeOf());
-        assertTrue(rl1.removeRestaurant("Saku"));
-
-        assertEquals(3, rl1.sizeOf());
-        assertFalse(rl1.containsRestaurant("Saku"));
-        assertTrue(rl1.removeRestaurant("Sura"));
-        assertTrue(rl1.removeRestaurant("McDonald's"));
-        assertEquals(1, rl1.sizeOf());
-
-        rl1.addRestaurant(r4);
-        assertEquals(2, rl1.sizeOf());
-        assertFalse(rl1.removeRestaurant("Saku"));
-    }
-
-    @Test
-    public void sortByLuxuryTest() {
-        visitTest();
-
-        RestaurantList rl2 = rl1.sortByLuxury();
-        assertEquals(2, rl2.sizeOf());
-        assertEquals(r3, rl2.nextRestaurant());
-        assertEquals(1, rl2.indexOf(r2));
-
-        for (int i = 1; i <= 10; i++) {
-            Restaurant r = new Restaurant("r", mcLocations,
-                    new Cuisine("Indian", new ArrayList<>()), 1);
-            r.setPrice(i);
-            r.setRating(i);
-            rl1.addRestaurant(r);
-        }
-        assertEquals(14, rl1.sizeOf());
-
-        RestaurantList rl3 = rl1.sortByLuxury();
-        assertEquals(12, rl2.sizeOf());
-        assertFalse(rl2.containsRestaurant("McDonald's"));
-        assertEquals(r3, rl3.nextRestaurant());
-        assertEquals(10, rl3.get(2).getPrice());
-    }
-
-    @Test
-    public void sortByCheapest() {
-        sortByLuxuryTest();
-        RestaurantList rl4 = rl1.sortByCheapest();
-
-        assertEquals(12, rl4.sizeOf());
-        assertFalse(rl4.containsRestaurant("McDonald's"));
-        assertEquals(1, rl4.nextRestaurant().getPrice());
-        assertEquals(11, rl4.indexOf(r3));
-    }
-
-    @Test
-    public void sortByRatingTest() {
-        sortByLuxuryTest();
-
-        RestaurantList rl4 = rl1.sortByRating();
-
-        assertEquals(12, rl4.sizeOf());
-        assertFalse(rl4.containsRestaurant("McDonald's"));
-        assertEquals(10, rl4.nextRestaurant().getRating());
-        assertEquals(r3, rl4.get(1));
-    }
-
-
-    @Test
-    public void sortByCuisine() {
-        RestaurantList rl2 = rl1.sortByCuisine("Korean");
-
-        assertEquals(r2, rl2.nextRestaurant());
-        assertEquals(r4, rl2.get(1));
-        assertEquals(r3, rl2.get(3));
-
-        RestaurantList rl3 = rl1.sortByCuisine("Japanese");
-
-        assertEquals(r3, rl3.nextRestaurant());
-        assertEquals(r2, rl3.get(1));
-
-        RestaurantList rl4 = rl1.sortByCuisine("Gq");
-
-        assertEquals(r1, rl4.nextRestaurant());
-        assertEquals(r4, rl4.get(3));
-    }
-
-    @Test
-    public void randomRestaurantRatingTest() {
-
-    }
 
 
 }

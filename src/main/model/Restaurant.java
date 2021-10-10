@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 // Represents a Restaurant having a name, locations, rating, price, cuisine, and number of times visited
 public class Restaurant {
@@ -41,9 +42,6 @@ public class Restaurant {
         return this.cuisine;
     }
 
-    public void setLocations(ArrayList<Location> locations) {
-        this.locations = locations;
-    }
 
     public void setCuisine(Cuisine cuisine) {
         this.cuisine = cuisine;
@@ -54,19 +52,41 @@ public class Restaurant {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds locations to list of locations
+    // EFFECTS: adds locations to list of locations unless already in list of locations, then does nothing
     public void addLocation(Location location) {
+        if (!locations.contains(location)) {
+            locations.add(location);
+        }
     }
 
-    // REQUIRES: location address must be in list of locations
+
     // MODIFIES: this
-    // EFFECTS: removes location with given address from list of locations
-    public void removeLocation(String address) {
+    // EFFECTS: removes all location with given address from list of locations, returns true if location is removed
+    //          false if no location was found
+    public boolean removeLocation(String address) {
+        boolean found = false;
+        ArrayList<Location> newLocations = new ArrayList<>();
+        for (Location l : locations) {
+            if (Objects.equals(l.getAddress(), address)) {
+                found = true;
+            } else {
+                newLocations.add(l);
+            }
+        }
+        this.locations = newLocations;
+        return found;
     }
 
     // EFFECTS: returns true if restaurant has a location in the area nm
     public boolean locationIn(String nm) {
-        return false;
+        boolean found = false;
+        for (Location l : locations) {
+            if (Objects.equals(l.getArea(), nm)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 
     public double getRating() {
@@ -99,14 +119,22 @@ public class Restaurant {
 
     // EFFECTS: returns true if visits is > 0
     public boolean isVisited() {
-        return false;
+        return visited > 0;
     }
 
     // REQUIRES rating and price must be greater than 0
     // MODIFIES: this
     // EFFECTS: adjusts rating and price of restaurant and increases number of times visited
-    public Restaurant visit(double rating, double price) {
-        return null;
+    public void visit(double rating, double price) {
+        if (isVisited()) {
+            this.rating = (rating + this.rating * visited) / (visited + 1);
+            this.price = (price + this.price * visited) / (visited + 1);
+            visited++;
+        } else {
+            this.rating = rating;
+            this.price = price;
+            visited = 1;
+        }
     }
 
 

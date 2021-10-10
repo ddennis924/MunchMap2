@@ -1,8 +1,13 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class LocationTest {
 
@@ -22,4 +27,5 @@ public class LocationTest {
 
         assertEquals("Richmond", l.getArea());
     }
+
 }
