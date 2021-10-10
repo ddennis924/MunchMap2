@@ -3,8 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
-import java.util.Random.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,11 +30,6 @@ class RestaurantListTest {
         count4 = 0;
         count5 = 0;
         counts = new ArrayList<>();
-        counts.add(count1);
-        counts.add(count2);
-        counts.add(count3);
-        counts.add(count4);
-        counts.add(count5);
 
         mcLocations = new ArrayList<>();
         mcLocations.add(new Location("1100 main mall", "UBC"));
@@ -126,7 +119,7 @@ class RestaurantListTest {
         double rate = (10.0+42.0)/7.0;
 
         assertEquals(rate, r2.getRating());
-        assertEquals(rate,r2.getPrice());
+        assertEquals(((12.0 + 60.0)/7), r2.getPrice());
         assertEquals(7, r2.getVisited());
 
         assertFalse(r3.isVisited());
@@ -141,7 +134,7 @@ class RestaurantListTest {
 
         rl1.getRestaurant("Saku").visit(7, 30);
 
-        assertEquals(9.75, r3.getRating());
+        assertEquals(9.5, r3.getRating());
         assertEquals(22.5, r3.getPrice());
         assertEquals(2, r3.getVisited());
 
@@ -177,16 +170,20 @@ class RestaurantListTest {
         assertEquals(14, rl1.sizeOf());
 
         RestaurantList rl3 = rl1.sortByLuxury();
-        assertEquals(12, rl2.sizeOf());
-        assertFalse(rl2.containsRestaurant("McDonald's"));
+        assertEquals(12, rl3.sizeOf());
+        assertFalse(rl3.containsRestaurant("McDonald's"));
         assertEquals(r3, rl3.nextRestaurant());
         assertEquals(10, rl3.get(2).getPrice());
     }
 
     private void addManyRestaurants() {
+        ArrayList<String> manyDishes = new ArrayList<>();
+        manyDishes.add("Curry");
+        manyDishes.add("Naan");
+        Cuisine manyCuisine = new Cuisine("Indian", manyDishes);
         for (int i = 1; i <= 10; i++) {
             Restaurant r = new Restaurant(("r" + i), mcLocations,
-                    new Cuisine("Indian", new ArrayList<>()), 1);
+                    manyCuisine, 1);
             r.setPrice(i);
             r.setRating(i);
             rl1.addRestaurant(r);
@@ -221,21 +218,20 @@ class RestaurantListTest {
 
     @Test
     public void sortByCuisine() {
-        RestaurantList rl2 = rl1.sortByCuisine("Korean");
+        RestaurantList rl2 = rl1.sortInCuisine("Korean");
 
         assertEquals(r2, rl2.nextRestaurant());
         assertEquals(r4, rl2.get(1));
-        assertEquals(r3, rl2.get(3));
+        assertEquals(2, rl2.sizeOf());
 
-        RestaurantList rl3 = rl1.sortByCuisine("Japanese");
+        RestaurantList rl3 = rl1.sortInCuisine("Japanese");
 
         assertEquals(r3, rl3.nextRestaurant());
-        assertEquals(r2, rl3.get(1));
+        assertEquals(1, rl3.sizeOf());
 
-        RestaurantList rl4 = rl1.sortByCuisine("Gq");
+        RestaurantList rl4 = rl1.sortInCuisine("Gq");
 
-        assertEquals(r1, rl4.nextRestaurant());
-        assertEquals(r4, rl4.get(3));
+        assertEquals(0, rl4.sizeOf());
     }
 
     @Test
@@ -252,7 +248,7 @@ class RestaurantListTest {
 
     @Test
     public void sortByVisitedTest() {
-        rl1.removeRestaurant("McDonald's");
+        assertTrue(rl1.removeRestaurant("Samsoonie"));
         RestaurantList rl2 = rl1.sortByVisited();
 
         assertEquals(0, rl2.sizeOf());
@@ -272,20 +268,26 @@ class RestaurantListTest {
         assertEquals(3, rl2.sizeOf());
         assertEquals("McDonald's", rl2.nextRestaurant().getName());
 
-        rl1.removeRestaurant("McDonald's");
-        rl1.removeRestaurant("Saku");
-        rl1.removeRestaurant("Sura");
+        assertTrue(rl1.removeRestaurant("McDonald's"));
+        assertTrue(rl1.removeRestaurant("Saku"));
+        assertTrue(rl1.removeRestaurant("Sura"));
+
         assertEquals(1, rl1.sizeOf());
 
-        RestaurantList rl3 = rl1.sortByVisited();
+        RestaurantList rl3 = rl1.sortByWishlist();
 
         assertEquals(0, rl3.sizeOf());
     }
 
     public void checkCount() {
+        counts.add(count1);
+        counts.add(count2);
+        counts.add(count3);
+        counts.add(count4);
+        counts.add(count5);
         int pass = 0;
         for (int c : counts) {
-            if ((300 > c) && (c > 100)) {
+            if ((325 >= c) && (c >= 75)) {
                 pass++;
             }
         }
@@ -303,7 +305,7 @@ class RestaurantListTest {
         assertEquals(10 ,randomRestaurant.getPrice());
         assertNull(randomRestaurant2);
 
-        for (int i = 1000; i <= 1000; i++) {
+        for (int i = 1; i <= 1000; i++) {
             Restaurant randomRestaurant3 = rl1.randomRestaurantRating(6, "UBC");
             if (10 == randomRestaurant3.getRating()) {
                 count1++;
@@ -332,8 +334,8 @@ class RestaurantListTest {
         assertEquals(1 ,randomRestaurant.getPrice());
         assertNull(randomRestaurant2);
 
-        for (int i = 1000; i <= 1000; i++) {
-            Restaurant randomRestaurant3 = rl1.randomRestaurantRating(5, "UBC");
+        for (int i = 1; i <= 1000; i++) {
+            Restaurant randomRestaurant3 = rl1.randomRestaurantPrice(5, "UBC");
             if (5 == randomRestaurant3.getPrice()) {
                 count1++;
             } else if (4 == randomRestaurant3.getPrice()) {
@@ -362,7 +364,7 @@ class RestaurantListTest {
 
         rl1.removeRestaurant("McDonald's");
 
-        for (int i = 1000; i <= 1000; i++) {
+        for (int i = 1; i <= 1000; i++) {
             Restaurant randomRestaurant3 = rl1.randomRestaurantCuisine("Indian", "Richmond");
             if ("r1".equals(randomRestaurant3.getName()) | "r2".equals(randomRestaurant3.getName())) {
                 count1++;
@@ -380,7 +382,7 @@ class RestaurantListTest {
     }
 
     @Test
-    public void randomRestuarantDishTest() {
+    public void randomRestaurantDishTest() {
         addManyRestaurants();
 
         Restaurant randomRestaurant = rl1.randomRestaurantDish("Kimchi", "Richmond");
@@ -392,8 +394,8 @@ class RestaurantListTest {
 
         rl1.removeRestaurant("McDonald's");
 
-        for (int i = 1000; i <= 1000; i++) {
-            Restaurant randomRestaurant3 = rl1.randomRestaurantCuisine("Burgers", "Richmond");
+        for (int i = 1; i <= 1000; i++) {
+            Restaurant randomRestaurant3 = rl1.randomRestaurantDish("Curry", "Richmond");
             if ("r1".equals(randomRestaurant3.getName()) | "r2".equals(randomRestaurant3.getName())) {
                 count1++;
             } else if ("r3".equals(randomRestaurant3.getName()) | "r4".equals(randomRestaurant3.getName())) {

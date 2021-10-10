@@ -1,7 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 
 // Represents a list of VisitedRestaurants
 public class RestaurantList {
@@ -84,16 +83,13 @@ public class RestaurantList {
     }
 
     // MODIFIES: this
-    // EFFECTS: returns a sorted list of restaurants by cuisine ethnicity
-    public RestaurantList sortByCuisine(String nm) {
+    // EFFECTS: returns a list of restaurants with the Cuisine ethnicity nm
+    public RestaurantList sortInCuisine(String nm) {
         RestaurantList sortedList = new RestaurantList();
         for (Restaurant r : restaurants) {
             if (r.getCuisine().getEthnicity().equals(nm)) {
                 sortedList.addRestaurant(r);
             }
-        }
-        for (Restaurant r : restaurants) {
-            sortedList.addRestaurant(r);
         }
         return sortedList;
     }
@@ -101,19 +97,58 @@ public class RestaurantList {
     // MODIFIES: this
     // EFFECTS: returns a sorted list of visited restaurants from the highest rating to lowest
     public RestaurantList sortByRating() {
-        return null; // stub
+        SortedSet<Double> sortedRatings = new TreeSet<>(Comparator.reverseOrder());
+        for (Restaurant r : restaurants) {
+            sortedRatings.add(r.getRating());
+        }
+        RestaurantList listToSort = sortByVisited();
+        RestaurantList sortedList = new RestaurantList();
+        for (double d : sortedRatings) {
+            for (Restaurant r : listToSort.restaurants) {
+                if (r.getRating() == d) {
+                    sortedList.addRestaurant(r);
+                }
+            }
+        }
+        return sortedList;
     }
 
     // MODIFIES: this
     // EFFECTS: sorts a sorted list of visited restaurants from the most expensive to cheapest
     public RestaurantList sortByLuxury() {
-        return null;
+        SortedSet<Double> sortedPrice = new TreeSet<>(Comparator.reverseOrder());
+        for (Restaurant r : restaurants) {
+            sortedPrice.add(r.getPrice());
+        }
+        RestaurantList listToSort = sortByVisited();
+        RestaurantList sortedList = new RestaurantList();
+        for (double d : sortedPrice) {
+            for (Restaurant r : listToSort.restaurants) {
+                if (r.getPrice() == d) {
+                    sortedList.addRestaurant(r);
+                }
+            }
+        }
+        return sortedList;
     }
 
     // MODIFIES: this
     // EFFECTS: sorts a sorted list of visited restaurants from the cheapest to most expensive
     public RestaurantList sortByCheapest() {
-        return null;
+        SortedSet<Double> sortedPrice = new TreeSet<>();
+        for (Restaurant r : restaurants) {
+            sortedPrice.add(r.getPrice());
+        }
+        RestaurantList listToSort = sortByVisited();
+        RestaurantList sortedList = new RestaurantList();
+        for (double d : sortedPrice) {
+            for (Restaurant r : listToSort.restaurants) {
+                if (r.getPrice() == d) {
+                    sortedList.addRestaurant(r);
+                }
+            }
+        }
+        return sortedList;
     }
 
     // EFFECTS: returns only restaurants in a specific area
@@ -126,46 +161,101 @@ public class RestaurantList {
                 }
             }
         }
-        for (Restaurant r : restaurants) {
-            sortedList.addRestaurant(r);
-        }
         return sortedList;
     }
 
     // EFFECTS: returns a RestaurantList of only visited restaurants from most visited to least
     public RestaurantList sortByVisited() {
-        return null;
+        RestaurantList visitedList = new RestaurantList();
+        for (Restaurant r : restaurants) {
+            if (r.isVisited()) {
+                visitedList.addRestaurant(r);
+            }
+        }
+        return visitedList;
     }
 
     // EFFECTS: returns a RestaurantList of only unvisited restaurants
     public RestaurantList sortByWishlist() {
-        return null;
+        RestaurantList wishList = new RestaurantList();
+        for (Restaurant r : restaurants) {
+            if (!r.isVisited()) {
+                wishList.addRestaurant(r);
+            }
+        }
+        return wishList;
     }
 
 
 
     // REQUIRES: r must be a double between 0 and 10
-    // EFFECTS: returns a random visited restaurant above rating r in the area l
-    public Restaurant randomRestaurantRating(double r, String l) {
-        return null;
+    // EFFECTS: returns a random visited restaurant above rating r in the area l,
+    //          or returns null if no restaurant is found
+    public Restaurant randomRestaurantRating(double rating, String l) {
+        RestaurantList sortedList = sortInLocation(l);
+        RestaurantList newSortedList = new RestaurantList();
+        for (Restaurant r : sortedList.getRestaurants()) {
+            if (r.getRating() >= rating) {
+                newSortedList.addRestaurant(r);
+            }
+        }
+        RestaurantList newNewSortedList = newSortedList.sortByVisited();
+        if (sortedList.sizeOf() == 0) {
+            return null;
+        } else {
+            Random random = new Random();
+            return newNewSortedList.get(random.nextInt(newNewSortedList.sizeOf()));
+        }
     }
 
     // REQUIRES: p must be greater than 0
-    // EFFECTS: returns a random visited restaurant below the price p in the area l
+    // EFFECTS: returns a random visited restaurant below the price p in the area l,
+    //          or returns null if not restaurant is found
     public Restaurant randomRestaurantPrice(double p, String l) {
-        return null;
+        RestaurantList sortedList = sortInLocation(l);
+        RestaurantList newSortedList = new RestaurantList();
+        for (Restaurant r : sortedList.getRestaurants()) {
+            if (r.getPrice() <= p) {
+                newSortedList.addRestaurant(r);
+            }
+        }
+        RestaurantList newNewSortedList = newSortedList.sortByVisited();
+        if (sortedList.sizeOf() == 0) {
+            return null;
+        } else {
+            Random random = new Random();
+            return newNewSortedList.get(random.nextInt(newNewSortedList.sizeOf()));
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: returns a random restaurant with the ethnicity c in the area l
+    // EFFECTS: returns a random restaurant with the ethnicity c in the area l, if none can be found, returns null
     public Restaurant randomRestaurantCuisine(String c, String l) {
-        return null;
+        RestaurantList sortedList = sortInCuisine(c).sortInLocation(l);
+        if (sortedList.sizeOf() == 0) {
+            return null;
+        } else {
+            Random random = new Random();
+            return sortedList.get(random.nextInt(sortedList.sizeOf()));
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: returns a random visited restaurant with the given dish in the area l
+    // EFFECTS: returns a random restaurant with the given dish in the area l
     public Restaurant randomRestaurantDish(String d, String l) {
-        return null;
+        RestaurantList sortedList = sortInLocation(l);
+        RestaurantList newSortedList = new RestaurantList();
+        for (Restaurant r : sortedList.getRestaurants()) {
+            if (r.getCuisine().getDishes().contains(d)) {
+                newSortedList.addRestaurant(r);
+            }
+        }
+        if (newSortedList.sizeOf() == 0) {
+            return null;
+        } else {
+            Random random = new Random();
+            return newSortedList.get(random.nextInt(newSortedList.sizeOf()));
+        }
     }
 
 }
