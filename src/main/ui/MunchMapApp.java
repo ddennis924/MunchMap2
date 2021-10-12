@@ -220,6 +220,9 @@ public class MunchMapApp {
         Cuisine cuisine = new Cuisine(ethnicity,dishes);
         r.setCuisine(cuisine);
         System.out.println("Any more dishes? Press Y to add more, else press any key to leave");
+        if (input.next().equals("Y")) {
+            doAddDish(r);
+        }
     }
 
     private void updateArea(Restaurant r) {
@@ -319,15 +322,18 @@ public class MunchMapApp {
     private void doWishListedRestaurants() {
         filteredList = mainList.sortByVisited();
         printRestaurantListMinimal(filteredList);
+        doSelection();
     }
 
     private void doVisitedRestaurants() {
         filteredList = mainList.sortByVisited();
         printRestaurantListMinimal(filteredList);
+        doSelection();
     }
 
     private void doAllRestaurant() {
         printRestaurantListMinimal(mainList);
+        doSelection();
     }
 
     private void printRestaurantMinimal(Restaurant r) {
@@ -336,7 +342,6 @@ public class MunchMapApp {
         } else {
             System.out.println(r.getName() + " | Have not been.");
         }
-        doSelection();
     }
 
     private void doSelection() {
@@ -377,7 +382,7 @@ public class MunchMapApp {
         } else if (command.equals("p")) {
             updatePrice(r);
         } else if (command.equals("d")) {
-            addDish(r);
+            doAddDish(r);
         } else {
             System.out.println("That's not a valid command");
         }
@@ -390,12 +395,12 @@ public class MunchMapApp {
         }
     }
 
-    private void addDish(Restaurant r) {
+    private void doAddDish(Restaurant r) {
         System.out.println("What kind of dishes do they have?");
         r.getCuisine().addDish(input.next());
         System.out.println("Any more? Press Y to add more, else press any key to continue.");
         if (input.next().equals("Y")) {
-            addDish(r);
+            doAddDish(r);
         }
     }
 
