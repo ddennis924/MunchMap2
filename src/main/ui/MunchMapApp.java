@@ -43,7 +43,7 @@ public class MunchMapApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes saved restaurants;
+    // EFFECTS: initializes saved restaurants
     private void init() {
         mainList = new RestaurantList();
         filteredList = new RestaurantList();

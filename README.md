@@ -35,8 +35,7 @@ based on user preferences, eliminating the arduous process of choosing a place t
 ## User Stories
 
 - As a user, I want to be able to add a restaurant to my list of visited restaurants
-- As a user, I want to be able to see the number of visited and unvisited restaurants
 - As a user, i want to be able to view my list of visited and unvisited restaurants
-- As a user, I want to be able to select a restaurant and modify its rating, locations, price, description, and number of times eaten
+- As a user, I want to be able to select a restaurant and modify its rating, locations, price, review, and number of times eaten
 - As a user, i want to be able to sort my visited restaurants by rating, locations, price, or visited
 - As a user, I want to be able to randomly view a restaurant above a specific rating or price
