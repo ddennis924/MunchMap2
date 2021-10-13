@@ -440,7 +440,7 @@ public class MunchMapApp {
         } else {
             System.out.println("That's not a valid command");
         }
-        System.out.println("You're Restaurant is");
+        System.out.println("Your Restaurant is");
         printRestaurant(r);
         System.out.println("Press M to modify again, or press any key to continue");
         if (input.next().equals("M")) {
@@ -452,18 +452,16 @@ public class MunchMapApp {
     // MODIFIES: r
     // EFFECTS: increases visits of restaurant by one and modifies rating and price
     private void doVisitRestaurant(Restaurant r) {
-        if (r.isVisited()) {
-            System.out.println("How was the rating this time?");
-            double rating = input.nextDouble();
-            System.out.println("How much did you pay this time?");
-            double price = input.nextDouble();
-            r.visit(rating,price);
-            System.out.println("Any review? If yes press Y, else press any key to update restaurant");
-            if (input.next().equals("Y")) {
-                reviewRestaurant(r);
-            }
-            printRestaurant(r);
+        System.out.println("How was the rating this time?");
+        double rating = input.nextDouble();
+        System.out.println("How much did you pay this time?");
+        double price = input.nextDouble();
+        r.visit(rating,price);
+        System.out.println("Any review? If yes press Y, else press any key to update restaurant");
+        if (input.next().equals("Y")) {
+            reviewRestaurant(r);
         }
+        printRestaurant(r);
     }
 
     // MODIFIES: r
