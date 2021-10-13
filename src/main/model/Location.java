@@ -1,5 +1,6 @@
 package model;
 
+// Represents a Location with an address and area (city or region)
 public class Location {
     private String address;
     private String area;

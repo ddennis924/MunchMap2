@@ -3,19 +3,20 @@ package model;
 import java.util.ArrayList;
 import java.util.Objects;
 
-// Represents a Restaurant having a name, locations, rating, price, cuisine, and number of times visited
+// Represents a Restaurant having a name, list of locations, rating, price, cuisine, review, and number of times visited
 public class Restaurant {
-    private String name;
-    private ArrayList<Location> locations;
-    private Cuisine cuisine;
-    private double rating;
-    private double price;
-    private int visited;
-    private String review;
+    private String name; // name of restaurant
+    private ArrayList<Location> locations; // list of restaurant locations
+    private Cuisine cuisine; // Cuisine of restaurant
+    private double rating; // rating of restaurant
+    private double price; // price of restaurant
+    private int visited; // number of times visited
+    private String review; // review of restaurant
 
     // REQUIRES: visited and price must be greater than 0
     // MODIFIES: this
-    // EFFECTS: creates a new restaurant with a given name, locations, rating, price, cuisine, and times visited
+    // EFFECTS: creates a new restaurant with a given name, locations, cuisine and number of visits, then sets ratings
+    //          and price to -1 and review to "no review found"
     public Restaurant(String name, ArrayList<Location> locations, Cuisine cuisine, int visits) {
         this.name = name;
         this.locations = locations;

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Objects;
 
+// Represents a Cuisine with an ethnicity and a list of dishes
 public class Cuisine {
     private String ethnicity;
     private ArrayList<String> dishes;

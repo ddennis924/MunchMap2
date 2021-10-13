@@ -4,10 +4,10 @@ import java.util.*;
 
 // Represents a list of VisitedRestaurants
 public class RestaurantList {
-    private final ArrayList<Restaurant> restaurants;
+    private final ArrayList<Restaurant> restaurants; // list of restaurants
 
 
-    // EFFECTS: Constructs an empty restaurant list
+    // EFFECTS: Constructs an empty Restaurant list
     public RestaurantList() {
         restaurants = new ArrayList<>();
     }
