@@ -114,9 +114,10 @@ public class MunchMapApp {
     // EFFECTS: filters mainList by either descending and ascending price and prints out filteredList
     private void doFilterPrice() {
         System.out.println("Press c to sort by cheapest, and l to sort by most expensive");
-        if (input.next().equals("c")) {
+        String command = input.next();
+        if (command.equals("c")) {
             filteredList = mainList.sortByCheapest();
-        } else if (input.next().equals("l")) {
+        } else if (command.equals("l")) {
             filteredList = mainList.sortByLuxury();
         }
         printRestaurantListMinimal(filteredList);
@@ -189,7 +190,12 @@ public class MunchMapApp {
     private void updateVisit(Restaurant newRestaurant) {
         System.out.println("How many times have you visited?");
         int visited = input.nextInt();
-        newRestaurant.setVisited(visited);
+        if (visited >= 0) {
+            newRestaurant.setVisited(visited);
+        } else {
+            System.out.println("visited must be greater than 0, please try again");
+            updateVisit(newRestaurant);
+        }
     }
 
     // MODIFIES: newRestaurant
@@ -197,15 +203,25 @@ public class MunchMapApp {
     private void updatePrice(Restaurant newRestaurant) {
         System.out.println("Whats the price?");
         double price = input.nextDouble();
-        newRestaurant.setPrice(price);
+        if (price >= 0) {
+            newRestaurant.setPrice(price);
+        } else {
+            System.out.println("Price must be greater than 0, please try again");
+            updatePrice(newRestaurant);
+        }
     }
 
     // MODIFIES: newRestaurant
     // EFFECTS: updates the price of selected restaurant
     private void updateRating(Restaurant newRestaurant) {
-        System.out.println("Whats the rating?");
+        System.out.println("Whats the rating out of 10?");
         double rating = input.nextDouble();
-        newRestaurant.setRating(rating);
+        if (rating <= 10 && rating >= 0) {
+            newRestaurant.setRating(rating);
+        } else {
+            System.out.println("Rating must be in between 0 and 10, please try again");
+            updateRating(newRestaurant);
+        }
     }
 
     // MODIFIES: newRestaurant
@@ -275,7 +291,11 @@ public class MunchMapApp {
     private void updateName(Restaurant r) {
         System.out.println("Please input Restaurant name");
         String name = input.next();
-        r.setName(name);
+        if (name.equals("")) {
+            System.out.println("Invalid name, please try again");
+        } else {
+            r.setName(name);
+        }
     }
 
     // EFFECTS: displays random restaurant menu options to user
@@ -416,10 +436,11 @@ public class MunchMapApp {
         System.out.println("\tv -> Visit Restaurant");
         System.out.println("\tn -> Change Name");
         System.out.println("\tw -> Write a Review");
-        System.out.println("\tr -> Change Rating");
-        System.out.println("\tp -> Change Price");
+        System.out.println("\tcr -> Change Rating");
+        System.out.println("\tcp -> Change Price");
         System.out.println("\tl -> Add Location");
         System.out.println("\td -> Add Dish");
+        System.out.println("\tr -> Remove a Restaurant");
     }
 
     // MODIFIES: r
@@ -431,16 +452,17 @@ public class MunchMapApp {
             updateName(r);
         } else if (command.equals("w")) {
             reviewRestaurant(r);
-        } else if (command.equals("r")) {
+        } else if (command.equals("cr")) {
             updateRating(r);
-        } else if (command.equals("p")) {
+        } else if (command.equals("cp")) {
             updatePrice(r);
         } else if (command.equals("d")) {
             doAddDish(r);
+        } else if (command.equals("r")) {
+            doRemoveRestaurant(r);
         } else {
             System.out.println("That's not a valid command");
         }
-        System.out.println("Your Restaurant is");
         printRestaurant(r);
         System.out.println("Press M to modify again, or press any key to continue");
         if (input.next().equals("M")) {
@@ -449,19 +471,40 @@ public class MunchMapApp {
         }
     }
 
+    private void doRemoveRestaurant(Restaurant r) {
+        mainList.removeRestaurant(r.getName());
+        System.out.print("Your Restaurant " + r.getName() + " has been removed, if this was a mistake, "
+                + "press N to cancel, else press any key to continue");
+        if (input.next().equals("N")) {
+            mainList.addRestaurant(r);
+            System.out.println("Your Restaurant " + r.getName() + " has been re-added.");
+        }
+    }
+
     // MODIFIES: r
     // EFFECTS: increases visits of restaurant by one and modifies rating and price
     private void doVisitRestaurant(Restaurant r) {
         System.out.println("How was the rating this time?");
         double rating = input.nextDouble();
-        System.out.println("How much did you pay this time?");
-        double price = input.nextDouble();
-        r.visit(rating,price);
-        System.out.println("Any review? If yes press Y, else press any key to update restaurant");
-        if (input.next().equals("Y")) {
-            reviewRestaurant(r);
+        if (rating > 10 | rating < 0) {
+            System.out.println("invalid rating, please try again");
+            doVisitRestaurant(r);
+        } else {
+            System.out.println("How much did you pay this time?");
+            double price = input.nextDouble();
+            if (price < 0) {
+                System.out.println("invalid price, please try again");
+                doVisitRestaurant(r);
+            } else {
+                r.visit(rating, price);
+                System.out.println("Any review? If yes press Y, else press any key to update restaurant");
+                if (input.next().equals("Y")) {
+                    reviewRestaurant(r);
+                } else {
+                    printRestaurant(r);
+                }
+            }
         }
-        printRestaurant(r);
     }
 
     // MODIFIES: r

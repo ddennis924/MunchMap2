@@ -55,7 +55,4 @@ public class Cuisine {
     public boolean containsDish(String dish) {
         return dishes.contains(dish);
     }
-
-
-
 }

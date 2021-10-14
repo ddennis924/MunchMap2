@@ -186,9 +186,8 @@ public class RestaurantList {
         return wishList;
     }
 
-
-
-    // REQUIRES: r must be a double between 0 and 10
+    // REQUIRES: r must be a double between 0 and 10,
+    //           at least one restaurant must exist at or above the specified rating and location
     // EFFECTS: returns a random visited restaurant above rating r in the area l,
     //          or returns null if no restaurant is found
     public Restaurant randomRestaurantRating(double rating, String l) {
@@ -208,7 +207,8 @@ public class RestaurantList {
         }
     }
 
-    // REQUIRES: p must be greater than 0
+    // REQUIRES: p must be greater than or equal to 0,
+    //           at least one restaurant must exist at or below the specified price and location
     // EFFECTS: returns a random visited restaurant below the price p in the area l,
     //          or returns null if not restaurant is found
     public Restaurant randomRestaurantPrice(double p, String l) {
@@ -228,6 +228,7 @@ public class RestaurantList {
         }
     }
 
+    // REQUIRES: at least one restaurant must exist with the specified Cuisine ethnicity and location
     // MODIFIES: this
     // EFFECTS: returns a random restaurant with the ethnicity c in the area l, if none can be found, returns null
     public Restaurant randomRestaurantCuisine(String c, String l) {
@@ -240,8 +241,9 @@ public class RestaurantList {
         }
     }
 
+    // REQUIRES: at least one restaurant must exist that contains the specified dish at the location
     // MODIFIES: this
-    // EFFECTS: returns a random restaurant with the given dish in the area l
+    // EFFECTS: returns a random restaurant with the given dish in the area l, returns null if non can be found
     public Restaurant randomRestaurantDish(String d, String l) {
         RestaurantList sortedList = sortInLocation(l);
         RestaurantList newSortedList = new RestaurantList();
@@ -257,5 +259,4 @@ public class RestaurantList {
             return newSortedList.get(random.nextInt(newSortedList.sizeOf()));
         }
     }
-
 }

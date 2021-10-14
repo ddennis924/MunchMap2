@@ -13,7 +13,7 @@ public class Restaurant {
     private int visited; // number of times visited
     private String review; // review of restaurant
 
-    // REQUIRES: visited and price must be greater than 0
+    // REQUIRES: visited and price must be greater than 0, String must be non-zero length
     // MODIFIES: this
     // EFFECTS: creates a new restaurant with a given name, locations, cuisine and number of visits, then sets ratings
     //          and price to -1 and review to "no review found"
@@ -106,10 +106,12 @@ public class Restaurant {
         return this.review;
     }
 
+    // REQUIRES: rating must be a double between 0 and 10
     public void setRating(double rating) {
         this.rating = rating;
     }
 
+    // REQUIRES: price must be >= 0
     public void setPrice(double price) {
         this.price = price;
     }
@@ -123,7 +125,7 @@ public class Restaurant {
         return visited > 0;
     }
 
-    // REQUIRES rating and price must be greater than 0
+    // REQUIRES rating must be between 0 and 10, and price must be greater than 0
     // MODIFIES: this
     // EFFECTS: adjusts rating and price of restaurant and increases number of times visited
     public void visit(double rating, double price) {
