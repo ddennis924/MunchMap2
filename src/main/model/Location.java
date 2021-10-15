@@ -5,6 +5,8 @@ public class Location {
     private String address;
     private String area;
 
+    // REQUIRES: Address and area must be non-zero length strings
+    // MODIFIES: this
     // EFFECTS: creates a location with a given address and area
     public Location(String address, String area) {
         this.address = address;

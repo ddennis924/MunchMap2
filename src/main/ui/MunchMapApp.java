@@ -46,6 +46,7 @@ public class MunchMapApp {
     // EFFECTS: initializes saved restaurants
     private void init() {
         mainList = new RestaurantList();
+        insertPreloadedRestaurants();
         filteredList = new RestaurantList();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
@@ -93,7 +94,8 @@ public class MunchMapApp {
         System.out.println("\tv -> Visited");
     }
 
-    // processes user commands for filter menu
+    // MODIFIES: this
+    // EFFECTS: processes user commands for filter menu
     private void processFilter(String command) {
         if (command.equals("c")) {
             doFilterCuisine();
@@ -201,7 +203,7 @@ public class MunchMapApp {
     // MODIFIES: newRestaurant
     // EFFECTS: updates the price of selected restaurant
     private void updatePrice(Restaurant newRestaurant) {
-        System.out.println("Whats the price?");
+        System.out.println("How much did you pay? (Number)");
         double price = input.nextDouble();
         if (price >= 0) {
             newRestaurant.setPrice(price);
@@ -257,7 +259,7 @@ public class MunchMapApp {
     // MODIFIES: r
     // EFFECTS: updates the Cuisine of selected restaurant
     private void updateCuisine(Restaurant r) {
-        System.out.println("What kind of food is it?");
+        System.out.println("What ethnicity of food is it?");
         String ethnicity = input.next();
         System.out.println("What kind of dishes do they have?");
         ArrayList<String> dishes = new ArrayList<>();
@@ -274,7 +276,7 @@ public class MunchMapApp {
     // MODIFIES: r
     // EFFECTS: adds a location into locations of restaurant
     private void addArea(Restaurant r) {
-        System.out.println("What is the area?");
+        System.out.println("What is the area? (City, Region, etc)");
         String area = input.next();
         System.out.println("Address?");
         String address = input.next();
@@ -373,7 +375,7 @@ public class MunchMapApp {
     private void doRandomPrice() {
         System.out.println("Where are you right now?");
         String area = input.next();
-        System.out.println("How cheap are we feeling today?");
+        System.out.println("How cheap are we feeling today? (below what price)");
         double price = input.nextDouble();
         Restaurant restaurant = mainList.randomRestaurantPrice(price, area);
         System.out.println("Here's your restaurant");
@@ -456,6 +458,8 @@ public class MunchMapApp {
             updateRating(r);
         } else if (command.equals("cp")) {
             updatePrice(r);
+        } else if (command.equals("l")) {
+            addArea(r);
         } else if (command.equals("d")) {
             doAddDish(r);
         } else if (command.equals("r")) {
@@ -464,13 +468,12 @@ public class MunchMapApp {
             System.out.println("That's not a valid command");
         }
         printRestaurant(r);
-        System.out.println("Press M to modify again, or press any key to continue");
-        if (input.next().equals("M")) {
-            modifyMenu();
-            processModify(input.next(), r);
-        }
+        System.out.println("Here is the updated restaurant");
     }
 
+    // REQUIRES: r must be in mainList
+    // MODIFIES: this
+    // EFFECTS: removes restaurant from mainList
     private void doRemoveRestaurant(Restaurant r) {
         mainList.removeRestaurant(r.getName());
         System.out.print("Your Restaurant " + r.getName() + " has been removed, if this was a mistake, "
@@ -484,13 +487,13 @@ public class MunchMapApp {
     // MODIFIES: r
     // EFFECTS: increases visits of restaurant by one and modifies rating and price
     private void doVisitRestaurant(Restaurant r) {
-        System.out.println("How was the rating this time?");
+        System.out.println("How was the rating out of 10 this time?");
         double rating = input.nextDouble();
         if (rating > 10 | rating < 0) {
             System.out.println("invalid rating, please try again");
             doVisitRestaurant(r);
         } else {
-            System.out.println("How much did you pay this time?");
+            System.out.println("How much $$$ did you pay this time?");
             double price = input.nextDouble();
             if (price < 0) {
                 System.out.println("invalid price, please try again");
@@ -516,5 +519,32 @@ public class MunchMapApp {
         if (input.next().equals("Y")) {
             doAddDish(r);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: inserts example restaurants McDonald's, Sura, and Saku into mainList
+    public void insertPreloadedRestaurants() {
+        ArrayList<Location> mcLocations = new ArrayList<>();
+        mcLocations.add(new Location("1100 main mall", "UBC"));
+        mcLocations.add(new Location("2314 no 2 road", "Richmond"));
+        ArrayList<String> dishes = new ArrayList<>();
+        dishes.add("Water");
+        Cuisine mcCuisine = new Cuisine("Fast Food", dishes);
+        Restaurant  mcDonalds = new Restaurant("McDonald's", mcLocations, mcCuisine, 0);
+        mainList.addRestaurant(mcDonalds);
+
+        ArrayList<Location> suraLocations = new ArrayList<>();
+        suraLocations.add(new Location("6 road", "Vancouver"));
+        suraLocations.add(new Location("123 parliament ave", "Victoria"));
+        Restaurant sura = new Restaurant("Sura", suraLocations, new Cuisine("Korean", dishes), 0);
+        mainList.addRestaurant(sura);
+
+        ArrayList<Location> sakuLocations = new ArrayList<>();
+        sakuLocations.add(new Location("123 west ave", "Vancouver"));
+        Cuisine sakuCuisine = new Cuisine("Japanese", new ArrayList<>());
+        sakuCuisine.addDish("Katsu");
+        sakuCuisine.addDish("Water");
+        Restaurant saku = new Restaurant("Saku", sakuLocations, sakuCuisine, 0);
+        mainList.addRestaurant(saku);
     }
 }

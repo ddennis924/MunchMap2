@@ -8,6 +8,8 @@ public class Cuisine {
     private String ethnicity;
     private ArrayList<String> dishes;
 
+    // REQUIRES: ethnicity and dishes must be non-zero length strings
+    // MODIFIES: this
     // EFFECTS: Constructs a cuisine with an ethnicity and specific dishes
     public Cuisine(String ethnicity, ArrayList<String> dishes) {
         this.ethnicity = ethnicity;
