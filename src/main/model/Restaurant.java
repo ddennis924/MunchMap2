@@ -1,10 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
+import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 // Represents a Restaurant having a name, list of locations, rating, price, cuisine, review, and number of times visited
-public class Restaurant {
+public class Restaurant implements Writable {
     private String name; // name of restaurant
     private ArrayList<Location> locations; // list of restaurant locations
     private Cuisine cuisine; // Cuisine of restaurant
@@ -141,4 +146,37 @@ public class Restaurant {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("locations", locationsToJson());
+        json.put("ethnicity", cuisine.getEthnicity());
+        json.put("dishes", dishesToJson());
+        json.put("visits", visited);
+        if (isVisited()) {
+            json.put("rating", rating);
+            json.put("price", price);
+            json.put("review", review);
+        }
+        return json;
+    }
+
+    private JSONArray dishesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (String s : cuisine.getDishes()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("dish", s);
+            jsonArray.put(jsonObject);
+        }
+        return jsonArray;
+    }
+
+    private JSONArray locationsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Location l : locations) {
+            jsonArray.put(l.toJson());
+        }
+        return  jsonArray;
+    }
 }

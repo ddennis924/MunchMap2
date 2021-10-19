@@ -1,0 +1,43 @@
+{
+  "name": "Dennis",
+  "restaurants": [
+    {
+      "visits": 4,
+      "ethnicity": "Korean",
+      "price": 23,
+      "review": "good food",
+      "name": "Samsoonie",
+      "rating": 7,
+      "locations": [
+        {
+          "area": "UBC",
+          "address": "111 Main mall"
+        },
+        {
+          "area": "Richmond",
+          "address": "111 No 3 Road"
+        }
+      ],
+      "dishes": [
+        {"dish": "Bulgogi"},
+        {"dish": "Pancakes"},
+        {"dish": "Rice"},
+        {"dish": "Water"}
+      ]
+    },
+    {
+      "visits": 0,
+      "ethnicity": "FastFood",
+      "name": "McDonald's",
+      "locations": [{
+        "area": "Richmond",
+        "address": "444"
+      }],
+      "dishes": [
+        {"dish": "Burgers"},
+        {"dish": "Fries"},
+        {"dish": "Water"}
+      ]
+    }
+  ]
+}

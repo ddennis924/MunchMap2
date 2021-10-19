@@ -4,18 +4,27 @@ import model.Cuisine;
 import model.Location;
 import model.Restaurant;
 import model.RestaurantList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // Munch Map Application
 public class MunchMapApp {
+    private static final String JSON_STORE = "./data/RestaurantList.json";
     private RestaurantList mainList; // main list of all restaurants
     private RestaurantList filteredList; // list that stores restaurants based on filter
     private Scanner input; // key input
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the Munch Map application
-    public MunchMapApp() {
+    public MunchMapApp() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runMunchMap();
     }
 
@@ -33,6 +42,7 @@ public class MunchMapApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
+                saveMainList();
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -42,12 +52,24 @@ public class MunchMapApp {
         System.out.println("Have a good meal!");
     }
 
+    private void saveMainList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(mainList);
+            jsonWriter.close();
+            System.out.println("Saved " + mainList.getName() + " to file, have a great meal!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file:");
+        }
+
+
+    }
+
     // MODIFIES: this
     // EFFECTS: initializes saved restaurants
     private void init() {
-        mainList = new RestaurantList();
-        insertPreloadedRestaurants();
-        filteredList = new RestaurantList();
+        mainList = new RestaurantList("Dennis");
+        filteredList = new RestaurantList("Filter");
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -56,6 +78,7 @@ public class MunchMapApp {
     private void displayMenu() {
         System.out.println("\nWelcome to MunchMap!");
         System.out.println("\nWhat would you like to do?");
+        System.out.println("\tl -> load Restaurant list");
         System.out.println("\ta -> Add a Restaurant");
         System.out.println("\ts -> View all Restaurants");
         System.out.println("\tv -> Filter Restaurants");
@@ -69,6 +92,8 @@ public class MunchMapApp {
     private void processCommand(String command) {
         if (command.equals("a")) {
             doAddRestaurant();
+        } else if (command.equals("l")) {
+            doLoadRestaurantList();
         } else if (command.equals("s")) {
             doAllRestaurant();
         } else if (command.equals("v")) {
@@ -81,6 +106,15 @@ public class MunchMapApp {
             processRandom(input.next());
         } else {
             System.out.println("Selection not valid...");
+        }
+    }
+
+    private void doLoadRestaurantList() {
+        try {
+            mainList = jsonReader.read();
+            System.out.println("Loaded " + mainList.getName() + " from file: " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to load Munch Map from file: " + JSON_STORE);
         }
     }
 
@@ -521,7 +555,7 @@ public class MunchMapApp {
         }
     }
 
-    // MODIFIES: this
+ /*   // MODIFIES: this
     // EFFECTS: inserts example restaurants McDonald's, Sura, and Saku into mainList
     public void insertPreloadedRestaurants() {
         ArrayList<Location> mcLocations = new ArrayList<>();
@@ -546,5 +580,5 @@ public class MunchMapApp {
         sakuCuisine.addDish("Water");
         Restaurant saku = new Restaurant("Saku", sakuLocations, sakuCuisine, 0);
         mainList.addRestaurant(saku);
-    }
+    } */
 }

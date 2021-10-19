@@ -1,7 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
+import java.nio.file.Watchable;
+
 // Represents a Location with an address and area (city or region)
-public class Location {
+public class Location implements Writable {
     private String address;
     private String area;
 
@@ -27,5 +32,13 @@ public class Location {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("address", address);
+        json.put("area", area);
+        return json;
     }
 }

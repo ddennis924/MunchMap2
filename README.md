@@ -39,3 +39,5 @@ based on user preferences, eliminating the arduous process of choosing a place t
 - As a user, I want to be able to select a restaurant and modify its rating, locations, price, review, and number of times eaten
 - As a user, I want to be able to sort my visited restaurants by rating, locations, price, or visited
 - As a user, I want to be able to randomly view a restaurant above a specific rating or price
+- As a user, I want to be able to automatically save my Restaurants to file after pressing q to quit
+- as a user, I want to be able to load my Restaurants from my file

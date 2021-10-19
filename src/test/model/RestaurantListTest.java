@@ -88,7 +88,7 @@ class RestaurantListTest {
 
         r4 = new Restaurant("Sura", suraLocations, new Cuisine("Korean", new ArrayList<>()), 0);
 
-        rl1 = new RestaurantList();
+        rl1 = new RestaurantList("Test");
 
         rl1.addRestaurant(r1);
         rl1.addRestaurant(r2);

@@ -1,0 +1,66 @@
+{
+    "name": "Dennis",
+    "restaurants": [
+        {
+            "visits": 0,
+            "ethnicity": "FastFood",
+            "name": "McDonald's",
+            "locations": [
+                {
+                    "area": "UBC",
+                    "address": "1100 main mall"
+                },
+                {
+                    "area": "Richmond",
+                    "address": "2314 no 2 road"
+                }
+            ],
+            "dishes": [
+                {"dish": "Burgers"},
+                {"dish": "Fries"}
+            ]
+        },
+        {
+            "visits": 6,
+            "ethnicity": "Korean",
+            "price": 10,
+            "review": "good food",
+            "name": "Samsoonie",
+            "rating": 7,
+            "locations": [{
+                "area": "Richmond",
+                "address": "1111 no 2 road"
+            }],
+            "dishes": [{"dish": "Kimchi"}]
+        },
+        {
+            "visits": 0,
+            "ethnicity": "Japanese",
+            "name": "Saku",
+            "locations": [{
+                "area": "Vancouver",
+                "address": "123 west ave"
+            }],
+            "dishes": [
+                {"dish": "Bulgogi"},
+                {"dish": "Pancakes"}
+            ]
+        },
+        {
+            "visits": 0,
+            "ethnicity": "Korean",
+            "name": "Sura",
+            "locations": [
+                {
+                    "area": "Vancouver",
+                    "address": "6 road"
+                },
+                {
+                    "area": "Victoria",
+                    "address": "parliament"
+                }
+            ],
+            "dishes": []
+        }
+    ]
+}

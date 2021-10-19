@@ -1,15 +1,21 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.*;
 
 // Represents a list of VisitedRestaurants
-public class RestaurantList {
+public class RestaurantList implements Writable {
     private final ArrayList<Restaurant> restaurants; // list of restaurants
+    String name;
 
 
-    // EFFECTS: Constructs an empty Restaurant list
-    public RestaurantList() {
+    // EFFECTS: Constructs an empty Restaurant list with a name
+    public RestaurantList(String name) {
         restaurants = new ArrayList<>();
+        this.name = name;
     }
 
     public ArrayList<Restaurant> getRestaurants() {
@@ -85,7 +91,7 @@ public class RestaurantList {
     // MODIFIES: this
     // EFFECTS: returns a list of restaurants with the Cuisine ethnicity nm
     public RestaurantList sortInCuisine(String nm) {
-        RestaurantList sortedList = new RestaurantList();
+        RestaurantList sortedList = new RestaurantList(name);
         for (Restaurant r : restaurants) {
             if (r.getCuisine().getEthnicity().equals(nm)) {
                 sortedList.addRestaurant(r);
@@ -102,7 +108,7 @@ public class RestaurantList {
             sortedRatings.add(r.getRating());
         }
         RestaurantList listToSort = sortByVisited();
-        RestaurantList sortedList = new RestaurantList();
+        RestaurantList sortedList = new RestaurantList(name);
         for (double d : sortedRatings) {
             for (Restaurant r : listToSort.restaurants) {
                 if (r.getRating() == d) {
@@ -121,7 +127,7 @@ public class RestaurantList {
             sortedPrice.add(r.getPrice());
         }
         RestaurantList listToSort = sortByVisited();
-        RestaurantList sortedList = new RestaurantList();
+        RestaurantList sortedList = new RestaurantList(name);
         for (double d : sortedPrice) {
             for (Restaurant r : listToSort.restaurants) {
                 if (r.getPrice() == d) {
@@ -140,7 +146,7 @@ public class RestaurantList {
             sortedPrice.add(r.getPrice());
         }
         RestaurantList listToSort = sortByVisited();
-        RestaurantList sortedList = new RestaurantList();
+        RestaurantList sortedList = new RestaurantList(name);
         for (double d : sortedPrice) {
             for (Restaurant r : listToSort.restaurants) {
                 if (r.getPrice() == d) {
@@ -153,7 +159,7 @@ public class RestaurantList {
 
     // EFFECTS: returns only restaurants in a specific area
     public RestaurantList sortInLocation(String nm) {
-        RestaurantList sortedList = new RestaurantList();
+        RestaurantList sortedList = new RestaurantList(name);
         for (Restaurant r : restaurants) {
             for (Location l : r.getLocations()) {
                 if (l.getArea().equals(nm)) {
@@ -166,7 +172,7 @@ public class RestaurantList {
 
     // EFFECTS: returns a RestaurantList of only visited restaurants from most visited to least
     public RestaurantList sortByVisited() {
-        RestaurantList visitedList = new RestaurantList();
+        RestaurantList visitedList = new RestaurantList(name);
         for (Restaurant r : restaurants) {
             if (r.isVisited()) {
                 visitedList.addRestaurant(r);
@@ -177,7 +183,7 @@ public class RestaurantList {
 
     // EFFECTS: returns a RestaurantList of only unvisited restaurants
     public RestaurantList sortByWishlist() {
-        RestaurantList wishList = new RestaurantList();
+        RestaurantList wishList = new RestaurantList(name);
         for (Restaurant r : restaurants) {
             if (!r.isVisited()) {
                 wishList.addRestaurant(r);
@@ -192,7 +198,7 @@ public class RestaurantList {
     //          or returns null if no restaurant is found
     public Restaurant randomRestaurantRating(double rating, String l) {
         RestaurantList sortedList = sortInLocation(l);
-        RestaurantList newSortedList = new RestaurantList();
+        RestaurantList newSortedList = new RestaurantList(name);
         for (Restaurant r : sortedList.getRestaurants()) {
             if (r.getRating() >= rating) {
                 newSortedList.addRestaurant(r);
@@ -213,7 +219,7 @@ public class RestaurantList {
     //          or returns null if not restaurant is found
     public Restaurant randomRestaurantPrice(double p, String l) {
         RestaurantList sortedList = sortInLocation(l);
-        RestaurantList newSortedList = new RestaurantList();
+        RestaurantList newSortedList = new RestaurantList(name);
         for (Restaurant r : sortedList.getRestaurants()) {
             if (r.getPrice() <= p) {
                 newSortedList.addRestaurant(r);
@@ -246,7 +252,7 @@ public class RestaurantList {
     // EFFECTS: returns a random restaurant with the given dish in the area l, returns null if non can be found
     public Restaurant randomRestaurantDish(String d, String l) {
         RestaurantList sortedList = sortInLocation(l);
-        RestaurantList newSortedList = new RestaurantList();
+        RestaurantList newSortedList = new RestaurantList(name);
         for (Restaurant r : sortedList.getRestaurants()) {
             if (r.getCuisine().getDishes().contains(d)) {
                 newSortedList.addRestaurant(r);
@@ -258,5 +264,25 @@ public class RestaurantList {
             Random random = new Random();
             return newSortedList.get(random.nextInt(newSortedList.sizeOf()));
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("restaurants", restaurantsToJson());
+        return json;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private JSONArray restaurantsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Restaurant r : restaurants) {
+            jsonArray.put(r.toJson());
+        }
+        return jsonArray;
     }
 }
