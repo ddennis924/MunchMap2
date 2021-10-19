@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class JsonWriterTest {
+public class JsonWriterTest extends JsonTest{
     RestaurantList rl = new RestaurantList("Dennis");
     JsonWriter writer;
 
@@ -31,10 +31,6 @@ public class JsonWriterTest {
     public void testWriterEmpty() {
         JsonReader reader = new JsonReader("./data/testJsonWriterEmpty.json");
         try {
-            RestaurantList restaurantList = reader.read();
-            assertEquals("Dennis", restaurantList.getName());
-            assertEquals(0, restaurantList.sizeOf());
-
             RestaurantList newList = new RestaurantList("Donald");
             writer = new JsonWriter("./data/testJsonWriterEmpty.json");
             writer.open();
@@ -113,10 +109,14 @@ public class JsonWriterTest {
             assertEquals("Dennis", restaurantList.getName());
             assertEquals(4, restaurantList.sizeOf());
             assertTrue(restaurantList.containsRestaurant("Sura"));
+            checkRestaurant("Sura", suraLocations, "Korean", 0, r4);
             assertTrue(restaurantList.containsRestaurant("Samsoonie"));
+            checkRestaurant("Samsoonie", samLocations, "Korean", 6, r2);
             assertTrue(restaurantList.containsRestaurant("McDonald's"));
+            checkRestaurant("McDonald's", mcLocations, "FastFood", 0, r1);
             assertFalse(restaurantList.getRestaurant("McDonald's").isVisited());
             assertTrue(restaurantList.containsRestaurant("Saku"));
+            checkRestaurant("Saku", sakuLocations, "Japanese", 0, r3);
         } catch (IOException e) {
             fail();
         }

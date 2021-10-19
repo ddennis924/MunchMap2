@@ -48,7 +48,35 @@ public class JsonReaderTest {
     }
 
     @Test
-    public void testReaderMany() {
+    public void testReaderVisited() {
+        reader = new JsonReader("./data/testJsonReaderVisited.json");
+        try {
+            RestaurantList restaurantList = reader.read();
+            assertEquals("Dennis", restaurantList.getName());
+            assertEquals(1, restaurantList.sizeOf());
+            assertTrue(restaurantList.containsRestaurant("Samsoonie"));
+            assertTrue(restaurantList.getRestaurant("Samsoonie").isVisited());
+        } catch (IOException e) {
+            fail("IOException not expected");
+        }
+    }
+
+    @Test
+    public void testReaderUnVisited() {
+        reader = new JsonReader("./data/testJsonReaderUnVisited.json");
+        try {
+            RestaurantList restaurantList = reader.read();
+            assertEquals("Dennis", restaurantList.getName());
+            assertEquals(1, restaurantList.sizeOf());
+            assertTrue(restaurantList.containsRestaurant("McDonald's"));
+            assertFalse(restaurantList.getRestaurant("McDonald's").isVisited());
+        } catch (IOException e) {
+            fail("IOException not expected");
+        }
+    }
+
+    @Test
+    public void testReaderBoth() {
         reader = new JsonReader("./data/testJsonReaderMany.json");
         try {
             RestaurantList restaurantList = reader.read();

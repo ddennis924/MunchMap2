@@ -1,0 +1,19 @@
+{
+  "name": "Dennis",
+  "restaurants": [
+    {
+      "visits": 0,
+      "ethnicity": "FastFood",
+      "name": "McDonald's",
+      "locations": [{
+        "area": "Richmond",
+        "address": "444"
+      }],
+      "dishes": [
+        {"dish": "Burgers"},
+        {"dish": "Fries"},
+        {"dish": "Water"}
+      ]
+    }
+  ]
+}
