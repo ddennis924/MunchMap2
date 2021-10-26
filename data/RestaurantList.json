@@ -38,6 +38,80 @@
                 {"dish": "Fries"},
                 {"dish": "Water"}
             ]
+        },
+        {
+            "visits": 0,
+            "ethnicity": "Korean",
+            "name": "So Hyang",
+            "locations": [{
+                "area": "Vancouver",
+                "address": "6345 Fraser St"
+            }],
+            "dishes": [{"dish": "Bulgogi"}]
+        },
+        {
+            "visits": 10,
+            "ethnicity": "Phillipino",
+            "price": 12,
+            "review": "no review found",
+            "name": "Nando's",
+            "rating": 7,
+            "locations": [
+                {
+                    "area": "Richmond",
+                    "address": "123 Steveston"
+                },
+                {
+                    "area": "Richmond",
+                    "address": "Walmart"
+                }
+            ],
+            "dishes": [{"dish": "Chicken"}]
+        },
+        {
+            "visits": 6,
+            "ethnicity": "Japanese",
+            "price": 15,
+            "review": "no review found",
+            "name": "Gmen",
+            "rating": 8,
+            "locations": [{
+                "area": "Richmond",
+                "address": "123 Alexandra Road"
+            }],
+            "dishes": [{"dish": "Ramen"}]
+        },
+        {
+            "visits": 0,
+            "ethnicity": "Japanese",
+            "name": "Kokoro",
+            "locations": [
+                {
+                    "area": "UBC",
+                    "address": "123 Main mall"
+                },
+                {
+                    "area": "Vancouver",
+                    "address": "5695 Victoria Dr"
+                }
+            ],
+            "dishes": [{"dish": "Mazesoba"}]
+        },
+        {
+            "visits": 0,
+            "ethnicity": "FastFood",
+            "name": "A&W",
+            "locations": [
+                {
+                    "area": "Richmond",
+                    "address": "123 No 3 road"
+                },
+                {
+                    "area": "Vancouver",
+                    "address": "4444 Oakridge blvd"
+                }
+            ],
+            "dishes": [{"dish": "Burgers"}]
         }
     ]
 }
