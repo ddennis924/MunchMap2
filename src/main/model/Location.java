@@ -18,6 +18,7 @@ public class Location implements Writable {
         this.area = area;
     }
 
+    // setters and getters
     public String getAddress() {
         return address;
     }

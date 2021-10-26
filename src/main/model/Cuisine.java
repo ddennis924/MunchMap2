@@ -20,6 +20,7 @@ public class Cuisine {
         this.dishes = dishes;
     }
 
+    // setters and getters
     public String getEthnicity() {
         return ethnicity;
     }

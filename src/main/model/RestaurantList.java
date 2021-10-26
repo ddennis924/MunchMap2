@@ -57,6 +57,10 @@ public class RestaurantList implements Writable {
         return restaurants.size();
     }
 
+    public String getName() {
+        return name;
+    }
+
     // EFFECTS: returns index position of restaurant r
     public int indexOf(Restaurant r) {
         return restaurants.indexOf(r);
@@ -274,10 +278,7 @@ public class RestaurantList implements Writable {
         return json;
     }
 
-    public String getName() {
-        return name;
-    }
-
+    // EFFECTS: returns restaurants in RestaurantList as JSONArray of restaurants
     private JSONArray restaurantsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Restaurant r : restaurants) {

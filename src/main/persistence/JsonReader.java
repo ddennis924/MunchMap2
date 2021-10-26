@@ -48,7 +48,7 @@ public class JsonReader {
     }
 
     // MODIFIES: rl
-    // EFFECTS: parses Restaurants from JSON object and adds them to RestaurantList
+    // EFFECTS: parses Restaurants from JSONobject and adds them to rl
     private void addRestaurants(RestaurantList rl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("restaurants");
         for (Object json : jsonArray) {
@@ -58,7 +58,7 @@ public class JsonReader {
     }
 
     // MODIFIES: rl
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // EFFECTS: parses Restaurant from JSON object and adds it to rl
     private void addRestaurant(RestaurantList rl, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
 
@@ -87,6 +87,8 @@ public class JsonReader {
         rl.addRestaurant(restaurant);
     }
 
+    // MODIFIES: dishes
+    // EFFECTS: parses dishes from dishesArray and adds it to dishes
     private void addDishes(JSONArray dishesArray, ArrayList<String> dishes) {
         for (Object json : dishesArray) {
             JSONObject dishObject = (JSONObject) json;
@@ -95,6 +97,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: locations
+    // EFFECTS: parses locations from JSONArray and adds it to locations
     private void addLocations(JSONArray locationsArray, ArrayList<Location> locations) {
         for (Object json : locationsArray) {
             JSONObject location = (JSONObject) json;
@@ -102,6 +106,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: rl
+    // EFFECTS: parses location from JSONObject and adds it to locations
     private void addLocation(JSONObject location, ArrayList<Location> locations) {
         String address = location.getString("address");
         String area = location.getString("area");

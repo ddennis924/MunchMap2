@@ -52,6 +52,7 @@ public class MunchMapApp {
         System.out.println("Have a good meal!");
     }
 
+    // EFFECTS: saves current mainList to file at JSON_STORE
     private void saveMainList() {
         try {
             jsonWriter.open();
@@ -109,6 +110,7 @@ public class MunchMapApp {
         }
     }
 
+    // EFFECTS: retrieves mainList from file at JSON_STORE
     private void doLoadRestaurantList() {
         try {
             mainList = jsonReader.read();
@@ -555,7 +557,7 @@ public class MunchMapApp {
         }
     }
 
- /*   // MODIFIES: this
+    /* // MODIFIES: this
     // EFFECTS: inserts example restaurants McDonald's, Sura, and Saku into mainList
     public void insertPreloadedRestaurants() {
         ArrayList<Location> mcLocations = new ArrayList<>();

@@ -32,6 +32,7 @@ public class Restaurant implements Writable {
         this.review = "no review found";
     }
 
+    // setters and getters
     public void setVisited(int visited) {
         this.visited = visited;
     }
@@ -55,6 +56,36 @@ public class Restaurant implements Writable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getRating() {
+        return this.rating;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public int getVisited() {
+        return this.visited;
+    }
+
+    public String getReview() {
+        return this.review;
+    }
+
+    // REQUIRES: rating must be a double between 0 and 10
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    // REQUIRES: price must be >= 0
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setReview(String r) {
+        this.review = r;
     }
 
     // MODIFIES: this
@@ -95,36 +126,6 @@ public class Restaurant implements Writable {
         return found;
     }
 
-    public double getRating() {
-        return this.rating;
-    }
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public int getVisited() {
-        return this.visited;
-    }
-
-    public String getReview() {
-        return this.review;
-    }
-
-    // REQUIRES: rating must be a double between 0 and 10
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    // REQUIRES: price must be >= 0
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setReview(String r) {
-        this.review = r;
-    }
-
     // EFFECTS: returns true if visits is > 0
     public boolean isVisited() {
         return visited > 0;
@@ -162,6 +163,7 @@ public class Restaurant implements Writable {
         return json;
     }
 
+    // EFFECTS: returns dishes in Restaurant Cuisine as a JSONArray of strings
     private JSONArray dishesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (String s : cuisine.getDishes()) {
@@ -172,6 +174,7 @@ public class Restaurant implements Writable {
         return jsonArray;
     }
 
+    // EFFECTS: returns locations in Restaurant locations as a JSONArray of Location
     private JSONArray locationsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Location l : locations) {
