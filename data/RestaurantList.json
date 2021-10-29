@@ -112,6 +112,22 @@
                 }
             ],
             "dishes": [{"dish": "Burgers"}]
+        },
+        {
+            "visits": 4,
+            "ethnicity": "FastFood",
+            "price": 10,
+            "review": "no review found",
+            "name": "Popeye's",
+            "rating": 7.5,
+            "locations": [{
+                "area": "Richmond",
+                "address": "1234 Cooney Road"
+            }],
+            "dishes": [
+                {"dish": "Fried Chicken"},
+                {"dish": "Popcorn Shrimp"}
+            ]
         }
     ]
 }

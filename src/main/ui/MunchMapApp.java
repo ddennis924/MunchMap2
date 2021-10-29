@@ -42,7 +42,6 @@ public class MunchMapApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
-                saveMainList();
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -80,9 +79,10 @@ public class MunchMapApp {
         System.out.println("\nWelcome to MunchMap!");
         System.out.println("\nWhat would you like to do?");
         System.out.println("\tl -> load Restaurant list");
+        System.out.println("\ts -> Save Current Restaurants");
         System.out.println("\ta -> Add a Restaurant");
-        System.out.println("\ts -> View all Restaurants");
-        System.out.println("\tv -> Filter Restaurants");
+        System.out.println("\tv -> View all Restaurants");
+        System.out.println("\tf -> Filter Restaurants");
         System.out.println("\tw -> View Wish-listed Restaurants");
         System.out.println("\tr -> I don't know where to eat, pick for me!");
         System.out.println("\tq -> quit");
@@ -96,8 +96,10 @@ public class MunchMapApp {
         } else if (command.equals("l")) {
             doLoadRestaurantList();
         } else if (command.equals("s")) {
-            doAllRestaurant();
+            saveMainList();
         } else if (command.equals("v")) {
+            doAllRestaurant();
+        } else if (command.equals("f")) {
             doFilteredRestaurantMenu();
             processFilter(input.next());
         } else if (command.equals("w")) {
