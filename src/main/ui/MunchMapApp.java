@@ -51,6 +51,26 @@ public class MunchMapApp {
         System.out.println("Have a good meal!");
     }
 
+    public RestaurantList getMainList() {
+        return mainList;
+    }
+
+    public RestaurantList getFilteredList() {
+        return filteredList;
+    }
+
+    public Scanner getInput() {
+        return input;
+    }
+
+    public JsonWriter getJsonWriter() {
+        return jsonWriter;
+    }
+
+    public JsonReader getJsonReader() {
+        return jsonReader;
+    }
+
     // EFFECTS: saves current mainList to file at JSON_STORE
     private void saveMainList() {
         try {
