@@ -245,7 +245,7 @@ public class MunchMapApp {
 
     }
 
-    // MODIFIES: newRestaurant
+    // MODIFIES: restaurant
     // EFFECTS: updates the number of times visited of selected restaurant
     private void updateVisit(Restaurant newRestaurant) {
         System.out.println("How many times have you visited?");
@@ -258,7 +258,7 @@ public class MunchMapApp {
         }
     }
 
-    // MODIFIES: newRestaurant
+    // MODIFIES: restaurant
     // EFFECTS: updates the price of selected restaurant
     private void updatePrice(Restaurant newRestaurant) {
         System.out.println("How much did you pay? (Number)");
@@ -271,7 +271,7 @@ public class MunchMapApp {
         }
     }
 
-    // MODIFIES: newRestaurant
+    // MODIFIES: restaurant
     // EFFECTS: updates the price of selected restaurant
     private void updateRating(Restaurant newRestaurant) {
         System.out.println("Whats the rating out of 10?");
@@ -284,7 +284,7 @@ public class MunchMapApp {
         }
     }
 
-    // MODIFIES: newRestaurant
+    // MODIFIES: restaurant
     // EFFECTS: updates the review of selected restaurant
     private void reviewRestaurant(Restaurant r) {
         System.out.println("Please write what you thought");
