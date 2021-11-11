@@ -1,10 +1,11 @@
-package ui.restaurantEditors;
+package ui.rEditors;
 
 import model.Cuisine;
 import model.Location;
 import model.Restaurant;
 import ui.MainFrame;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class RestaurantCreator extends RestaurantEditor {
 
     @Override
     protected void setStartingPrompt() {
-        title.append("What is the name of the Restaurant?");
+        title.setText("What is the name of the Restaurant?");
     }
 
     public void updateName(Restaurant r) {

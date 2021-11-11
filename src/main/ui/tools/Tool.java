@@ -3,6 +3,7 @@ package ui.tools;
 import ui.MainFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public abstract class Tool {
@@ -13,6 +14,7 @@ public abstract class Tool {
         this.editor = editor;
         createButton(parent);
         addToParent(parent);
+        customizeButton(button);
         addListener();
     }
 
@@ -22,6 +24,7 @@ public abstract class Tool {
         button.setBorderPainted(true);
         button.setFocusPainted(true);
         button.setContentAreaFilled(true);
+        button.setForeground(MainFrame.TEXT_COLOR);
         return button;
     }
 

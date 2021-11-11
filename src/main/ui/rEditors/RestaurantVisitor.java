@@ -1,7 +1,8 @@
-package ui.restaurantEditors;
+package ui.rEditors;
 
 import ui.MainFrame;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class RestaurantVisitor extends RestaurantEditor {

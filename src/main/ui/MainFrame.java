@@ -5,10 +5,8 @@ import model.Restaurant;
 import model.RestaurantList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.tools.AddRestaurantTool;
-import ui.tools.RemoveRestaurantTool;
-import ui.tools.Tool;
-import ui.tools.VisitTool;
+import ui.rEditors.RestaurantDishAdder;
+import ui.tools.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -18,12 +16,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainFrame extends JFrame {
     public static final int WIDTH = 500;
     public static final int HEIGHT = 500;
+    public static final Color MAIN_COLOR = new Color(47,49,54);
+    public static final Color SECOND_COLOR = new Color(55,57,63);
+    public static final Color TEXT_COLOR = new Color(198,199,201);
     private static final String JSON_STORE = "./data/RestaurantList.json";
     private RestaurantList mainList; // main list of all restaurants
     private RestaurantList filteredList; // list that stores restaurants based on filter
@@ -124,8 +124,13 @@ public class MainFrame extends JFrame {
         setSize(new Dimension(WIDTH, HEIGHT));
         setMinimumSize(new Dimension(100, 200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addTopMenu();
         addMainPanel();
         addListTools();
+    }
+
+    private void addTopMenu() {
+        new MenuBar(this);
     }
 
 
@@ -133,14 +138,17 @@ public class MainFrame extends JFrame {
         main = new JTextArea();
         main.setMargin(new Insets(5,5,5,5));
         main.setEditable(false);
-        main.setBackground(new Color(241, 255, 224));
+        main.setBackground(SECOND_COLOR);
+        main.setForeground(TEXT_COLOR);
         main.setPreferredSize(new Dimension(main.getWidth(), 450));
         main.setSize(new Dimension(500, 800));
         JScrollPane p = new JScrollPane(main);
         p.setMinimumSize(new Dimension(300, 800));
+        p.setBackground(MAIN_COLOR);
         selectedR = null;
         printRestaurant();
         JPanel mainPane = new JPanel(new BorderLayout());
+        mainPane.setBackground(MAIN_COLOR);
         add(mainPane, BorderLayout.CENTER);
         addList(mainPane);
         mainPane.add(p, BorderLayout.CENTER);
@@ -149,9 +157,12 @@ public class MainFrame extends JFrame {
 
     private void addSelectionTools(JPanel mainPane) {
         JPanel toolArea = new JPanel(new GridLayout(4,1));
+        toolArea.setBackground(MAIN_COLOR);
         mainPane.add(toolArea, BorderLayout.EAST);
-        RemoveRestaurantTool removeRestaurantTool = new RemoveRestaurantTool(this, toolArea);
-        VisitTool visitTool = new VisitTool(this, toolArea);
+        new RemoveRestaurantTool(this, toolArea);
+        new VisitTool(this, toolArea);
+        new AddLocationTool(this, toolArea);
+        new AddDishTool(this, toolArea);
 
     }
 
@@ -181,11 +192,14 @@ public class MainFrame extends JFrame {
     }
 
     private void addList(JPanel mainPane) {
-        JList rlist = new JList(printRestaurants());
+        JList rlist = new JList(printRestaurants(mainList));
         rlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         rlist.setSelectedIndex(0);
         rlist.setVisibleRowCount(5);
+        rlist.setBackground(SECOND_COLOR);
+        rlist.setForeground(TEXT_COLOR);
         JScrollPane listScrollPane = new JScrollPane(rlist);
+        listScrollPane.setBackground(MAIN_COLOR);
         mainPane.add(listScrollPane, BorderLayout.SOUTH);
         listScrollPane.setPreferredSize(new Dimension(listScrollPane.getWidth(), 150));
         rlist.addListSelectionListener(new ListSelectionListener() {
@@ -197,8 +211,9 @@ public class MainFrame extends JFrame {
         });
     }
 
-    private ListModel printRestaurants() {
-        for (Restaurant r : mainList.getRestaurants()) {
+    public ListModel printRestaurants(RestaurantList list) {
+        rlistModel.clear();
+        for (Restaurant r : list.getRestaurants()) {
             String description = printRestaurantMinimal(r);
             slist.put(description, r);
             if (!rlistModel.contains(description)) {
@@ -223,6 +238,7 @@ public class MainFrame extends JFrame {
         JPanel toolArea = new JPanel();
         toolArea.setLayout(new GridLayout(0,1));
         toolArea.setVisible(true);
+        toolArea.setBackground(MAIN_COLOR);
         add(toolArea, BorderLayout.SOUTH);
         SearchBar search = new SearchBar(this,toolArea);
         AddRestaurantTool b1 = new AddRestaurantTool(this, toolArea);
@@ -231,7 +247,13 @@ public class MainFrame extends JFrame {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println();
+                if (filteredList == null) {
+                    System.out.println("null");
+                } else {
+                    for (Restaurant r : filteredList.getRestaurants()) {
+                        System.out.println(r.getName());
+                    }
+                }
             }
         });
     }
@@ -250,7 +272,7 @@ public class MainFrame extends JFrame {
 
     public void updateRestaurantList() {
         rlistModel.clear();
-        printRestaurants();
+        printRestaurants(mainList);
     }
 
     public static void main(String[] args) {
