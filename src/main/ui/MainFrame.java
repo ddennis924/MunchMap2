@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainFrame extends JFrame {
-    public static final int WIDTH = 500;
-    public static final int HEIGHT = 500;
+    public static final int WIDTH = 450;
+    public static final int HEIGHT = 550;
     public static final Color MAIN_COLOR = new Color(47,49,54);
     public static final Color SECOND_COLOR = new Color(55,57,63);
     public static final Color TEXT_COLOR = new Color(198,199,201);
@@ -40,6 +40,7 @@ public class MainFrame extends JFrame {
         jsonReader = new JsonReader(JSON_STORE);
         rlistModel = new DefaultListModel();
         slist = new HashMap<>();
+        selectedR = null;
         doLoadRestaurantList();
         initializeGraphics();
     }
@@ -122,11 +123,13 @@ public class MainFrame extends JFrame {
         setVisible(true);
         setLayout(new BorderLayout());
         setSize(new Dimension(WIDTH, HEIGHT));
-        setMinimumSize(new Dimension(100, 200));
+        setMinimumSize(new Dimension(400, 450));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addTopMenu();
         addMainPanel();
         addListTools();
+        revalidate();
+        repaint();
     }
 
     private void addTopMenu() {
@@ -135,17 +138,9 @@ public class MainFrame extends JFrame {
 
 
     private void addMainPanel() {
-        main = new JTextArea();
-        main.setMargin(new Insets(5,5,5,5));
-        main.setEditable(false);
-        main.setBackground(SECOND_COLOR);
-        main.setForeground(TEXT_COLOR);
-        main.setPreferredSize(new Dimension(main.getWidth(), 450));
-        main.setSize(new Dimension(500, 800));
+        initializeMain();
         JScrollPane p = new JScrollPane(main);
-        p.setMinimumSize(new Dimension(300, 800));
         p.setBackground(MAIN_COLOR);
-        selectedR = null;
         printRestaurant();
         JPanel mainPane = new JPanel(new BorderLayout());
         mainPane.setBackground(MAIN_COLOR);
@@ -153,6 +148,13 @@ public class MainFrame extends JFrame {
         addList(mainPane);
         mainPane.add(p, BorderLayout.CENTER);
         addSelectionTools(mainPane);
+    }
+
+    private void initializeMain() {
+        main = new JTextArea();
+        main.setEditable(false);
+        main.setBackground(SECOND_COLOR);
+        main.setForeground(TEXT_COLOR);
     }
 
     private void addSelectionTools(JPanel mainPane) {
@@ -163,7 +165,6 @@ public class MainFrame extends JFrame {
         new VisitTool(this, toolArea);
         new AddLocationTool(this, toolArea);
         new AddDishTool(this, toolArea);
-
     }
 
     private void printRestaurant() {
@@ -240,22 +241,9 @@ public class MainFrame extends JFrame {
         toolArea.setVisible(true);
         toolArea.setBackground(MAIN_COLOR);
         add(toolArea, BorderLayout.SOUTH);
-        SearchBar search = new SearchBar(this,toolArea);
-        AddRestaurantTool b1 = new AddRestaurantTool(this, toolArea);
-        JButton b2 = new JButton("pee");
-        toolArea.add(b2);
-        b2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (filteredList == null) {
-                    System.out.println("null");
-                } else {
-                    for (Restaurant r : filteredList.getRestaurants()) {
-                        System.out.println(r.getName());
-                    }
-                }
-            }
-        });
+        new SearchBar(this,toolArea);
+        new AddRestaurantTool(this, toolArea);
+        new RandomRestaurantTool(this, toolArea);
     }
 
     public void setRestaurant(Restaurant r) {

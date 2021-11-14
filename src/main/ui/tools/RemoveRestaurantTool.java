@@ -31,7 +31,6 @@ public class RemoveRestaurantTool extends Tool {
     protected void createButton(JComponent parent) {
         button = new JButton("Remove");
         button.setPreferredSize(new Dimension(100, 50));
-        button.setMargin(new Insets(5,5,5,5));
         addToParent(parent);
     }
 }
