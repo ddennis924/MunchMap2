@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,8 +42,16 @@ public class MainFrame extends JFrame {
         rlistModel = new DefaultListModel();
         slist = new HashMap<>();
         selectedR = null;
+        init();
         doLoadRestaurantList();
-        initializeGraphics();
+    }
+
+    private void init() {
+        setVisible(true);
+        setLayout(new BorderLayout());
+        setSize(new Dimension(WIDTH, HEIGHT));
+        setMinimumSize(new Dimension(400, 450));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public RestaurantList getMainList() {
@@ -111,20 +120,62 @@ public class MainFrame extends JFrame {
 
     // EFFECTS: retrieves mainList from file at JSON_STORE
     private void doLoadRestaurantList() {
-        try {
-            mainList = jsonReader.read();
-            System.out.println("Loaded " + mainList.getName() + " from file: " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to load Munch Map from file: " + JSON_STORE);
-        }
+        JPanel loadPanel = new JPanel(new GridLayout(5, 2));
+        add(loadPanel, BorderLayout.CENTER);
+        loadPanel.setPreferredSize(new Dimension(WIDTH, 100));
+        loadPanel.setBackground(MAIN_COLOR);
+        loadPanel.setForeground(TEXT_COLOR);
+        addFiller(loadPanel);
+        initLoadTools(loadPanel);
     }
 
-    private void initializeGraphics() {
-        setVisible(true);
-        setLayout(new BorderLayout());
-        setSize(new Dimension(WIDTH, HEIGHT));
-        setMinimumSize(new Dimension(400, 450));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void initLoadTools(JPanel loadPanel) {
+        initLoadTool(loadPanel);
+        initNewListTool(loadPanel);
+    }
+
+    private void initNewListTool(JPanel loadPanel) {
+        JButton newList = new JButton("New List");
+        loadPanel.add(newList);
+        newList.setForeground(new Color(224, 166, 166));
+        newList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainList = new RestaurantList("NewList");
+                initializeGraphics(loadPanel);
+            }
+        });
+    }
+
+    private void initLoadTool(JPanel loadPanel) {
+        JButton load = new JButton("Load Restaurants");
+        loadPanel.add(load);
+        load.setForeground(new Color(185, 213, 186));
+        load.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent a) {
+                try {
+                    mainList = jsonReader.read();
+                    System.out.println("Loaded " + mainList.getName() + " from file: " + JSON_STORE);
+                    initializeGraphics(loadPanel);
+                } catch (IOException e) {
+                    System.out.println("Unable to load Munch Map from file: " + JSON_STORE);
+                }
+            }
+        });
+    }
+
+    private void addFiller(JPanel loadPanel) {
+        for (int i = 0; i < 4; i++) {
+            JPanel filler = new JPanel();
+            filler.setBackground(MAIN_COLOR);
+            loadPanel.add(filler);
+        }
+
+    }
+
+    private void initializeGraphics(JComponent previous) {
+        remove(previous);
         addTopMenu();
         addMainPanel();
         addListTools();
@@ -238,12 +289,14 @@ public class MainFrame extends JFrame {
     private void addListTools() {
         JPanel toolArea = new JPanel();
         toolArea.setLayout(new GridLayout(0,1));
-        toolArea.setVisible(true);
+        toolArea.setPreferredSize(new Dimension(WIDTH, 150));
+
         toolArea.setBackground(MAIN_COLOR);
         add(toolArea, BorderLayout.SOUTH);
         new SearchBar(this,toolArea);
         new AddRestaurantTool(this, toolArea);
         new RandomRestaurantTool(this, toolArea);
+        new SaveTool(this, toolArea);
     }
 
     public void setRestaurant(Restaurant r) {
@@ -261,6 +314,17 @@ public class MainFrame extends JFrame {
     public void updateRestaurantList() {
         rlistModel.clear();
         printRestaurants(mainList);
+    }
+
+    public void save() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(mainList);
+            jsonWriter.close();
+            main.setText("Saved " + mainList.getName() + " to file, have a great meal!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file:");
+        }
     }
 
     public static void main(String[] args) {
