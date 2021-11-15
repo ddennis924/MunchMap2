@@ -10,6 +10,7 @@ public abstract class Tool {
     protected JButton button;
     protected MainFrame editor;
 
+    // EFFECTS: constructs a tool with a MainFram, parent component, and button
     public Tool(MainFrame editor, JComponent parent) {
         this.editor = editor;
         createButton(parent);
@@ -28,12 +29,18 @@ public abstract class Tool {
         return button;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a listener for button
     protected abstract void addListener();
 
+    // MODIFIES: parent
+    // EFFECTS: adds button to parent
     protected void addToParent(JComponent parent) {
         parent.add(this.button);   
     }
 
+    // MODIFIES this, parent
+    // EFFECTS: creates a button with a given parent
     protected abstract void createButton(JComponent parent);
 
     // EFFECTS: default behaviour does nothing

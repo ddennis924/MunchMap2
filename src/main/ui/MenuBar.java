@@ -7,6 +7,7 @@ public class MenuBar {
     JMenuBar menuBar;
     MainFrame editor;
 
+    // EFFECTS: creates a menu bar with a given editor and restaurant sorting functionality
     public MenuBar(MainFrame editor) {
         this.editor = editor;
         init();
@@ -14,6 +15,8 @@ public class MenuBar {
         menuBar.setBorderPainted(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: inserts RestaurantListSorter into menuBar
     public void init() {
         menuBar = new JMenuBar();
         new RestaurantListSorter(editor, menuBar);

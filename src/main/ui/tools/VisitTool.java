@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class VisitTool extends Tool {
+
+    // EFFECTS: Constructs a VisitTool
     public VisitTool(MainFrame editor, JComponent parent) {
         super(editor, parent);
         button.setMnemonic(KeyEvent.VK_V);

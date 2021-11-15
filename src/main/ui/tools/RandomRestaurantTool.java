@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 
 public class RandomRestaurantTool extends Tool {
 
+    // EFFECTS: Constructs a RandomRestaurantTool that calls RandomRestaurantSelector
     public RandomRestaurantTool(MainFrame editor, JComponent parent) {
         super(editor, parent);
         button.setMnemonic(KeyEvent.VK_R);

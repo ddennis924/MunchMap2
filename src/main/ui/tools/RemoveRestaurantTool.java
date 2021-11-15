@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 public class RemoveRestaurantTool extends Tool {
 
+    // EFFECTS: constructs a removeRestaurantTool that removes a restaurant from editor's mainList
     public RemoveRestaurantTool(MainFrame editor, JComponent parent) {
         super(editor, parent);
     }

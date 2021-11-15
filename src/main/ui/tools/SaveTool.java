@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SaveTool extends Tool {
+
+    // EFFECTS: constructs a save button that saves editor's mainList
     public SaveTool(MainFrame editor, JComponent parent) {
         super(editor, parent);
     }

@@ -15,6 +15,7 @@ public class SearchBar implements ActionListener {
     protected JComponent parent;
     protected MainFrame editor;
 
+    // EFFECTS: Constructs a searchBar with a textField to search through a RestaurantList
     public SearchBar(MainFrame m, JComponent p) {
         textField = new JTextField("Search...");
         textField.setForeground(new Color(145,145,145));

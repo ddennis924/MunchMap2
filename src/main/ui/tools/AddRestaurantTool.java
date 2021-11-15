@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 
 public class AddRestaurantTool extends Tool {
 
+    // EFFECTS: Constructs an AddRestaurantTool that calls RestaurantCreator
     public AddRestaurantTool(MainFrame editor, JComponent parent) {
         super(editor, parent);
         button.setMnemonic(KeyEvent.VK_A);

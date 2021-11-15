@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 public class RandomRestaurantSelector extends RestaurantEditor {
     String location;
 
+    // EFFECTS: Constructs a RandomRestaurantSelector gui to randomly select from editor's mainList
     public RandomRestaurantSelector(MainFrame e) {
         super(e);
     }
@@ -42,30 +43,40 @@ public class RandomRestaurantSelector extends RestaurantEditor {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: selects a random restaurant from editor by price and sets it as editor's selectedR
     private void doRandomPrice() {
         double price = Double.parseDouble(getString());
         editor.setRestaurant(editor.getMainList().randomRestaurantPrice(price, location));
         dispose();
     }
 
+    // MODIFIES: this
+    // EFFECTS: selects a random restaurant from editor by rating and sets it as editor's selectedR
     private void doRandomRating() {
         double rating = Double.parseDouble(getString());
         editor.setRestaurant(editor.getMainList().randomRestaurantRating(rating, location));
         dispose();
     }
 
+    // MODIFIES: this
+    // EFFECTS: selects a random restaurant from editor by cuisine and sets it as editor's selectedR
     private void doRandomCuisine() {
         String cuisine = getString();
         editor.setRestaurant(editor.getMainList().randomRestaurantCuisine(cuisine, location));
         dispose();
     }
 
+    // MODIFIES: this
+    // EFFECTS: selects a random restaurant from editor by dish and sets it as editor's selectedR
     private void doRandomDish() {
         String dish = getString();
         editor.setRestaurant(editor.getMainList().randomRestaurantDish(dish, location));
         dispose();
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays all the possible options to randomly select by
     private void initRandom(JPanel options, String s, String s2, int i) {
         JButton price = new JButton(s);
         options.add(price);

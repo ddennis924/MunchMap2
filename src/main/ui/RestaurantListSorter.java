@@ -10,6 +10,7 @@ public class RestaurantListSorter implements ItemListener {
     JMenu menu;
     MainFrame editor;
 
+    // EFFECTS: Creates a gui for sorting restaurants
     public RestaurantListSorter(MainFrame editor, JMenuBar parent) {
         this.editor = editor;
         menu = new JMenu("Sort Menu");
@@ -17,6 +18,8 @@ public class RestaurantListSorter implements ItemListener {
         addTools();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds all possible methods of sorting restaurants
     private void addTools() {
         addMenuItem("price (highest)");
 
@@ -31,6 +34,8 @@ public class RestaurantListSorter implements ItemListener {
         addMenuItem("Wish-listed");
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a checkBoxItem with the given string into menu
     private void addMenuItem(String s) {
         JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem(s);
         menuItem.addItemListener(this);

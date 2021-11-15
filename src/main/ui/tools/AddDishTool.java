@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 
 public class AddDishTool extends Tool {
 
+    // EFFECTS: Constructs an AddDishTool that calls RestaurantDishAdder
     public AddDishTool(MainFrame editor, JComponent parent) {
         super(editor, parent);
         button.setMnemonic(KeyEvent.VK_D);

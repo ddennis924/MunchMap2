@@ -17,6 +17,7 @@ public abstract class RestaurantEditor extends JFrame implements ActionListener 
     protected Restaurant restaurant;
     protected int sequence;
 
+    // EFFECTS: constructs a RestaurantEditor gui with a given MainFrame editor that operates on editor's mainList
     public RestaurantEditor(MainFrame e) {
         this.editor = e;
         restaurant = editor.getSelectedR();
@@ -24,6 +25,8 @@ public abstract class RestaurantEditor extends JFrame implements ActionListener 
         initializeGraphics();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the gui
     protected void initializeGraphics() {
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new BorderLayout());
@@ -38,12 +41,16 @@ public abstract class RestaurantEditor extends JFrame implements ActionListener 
         addPrompts(main);
     }
 
+    // MODIFIES: this
+    // EFFECTS: display the first prompt message and layout
     protected void addPrompts(JPanel main) {
         initializeTitle(main);
         initializeTextField(main);
         setStartingPrompt();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes textField
     private void initializeTextField(JPanel main) {
         textField = new JTextField();
         textField.addActionListener(this);
@@ -51,6 +58,8 @@ public abstract class RestaurantEditor extends JFrame implements ActionListener 
         main.add(textField, BorderLayout.CENTER);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes title
     private void initializeTitle(JPanel main) {
         title = new JTextPane();
         title.setVisible(true);
@@ -65,12 +74,16 @@ public abstract class RestaurantEditor extends JFrame implements ActionListener 
         main.add(title, BorderLayout.NORTH);
     }
 
+    // MODIFIES: this
+    // EFFECTS: returns the current text in textField and removes it from textField
     protected String getString() {
         String text = textField.getText();
         textField.setText("");
         return text;
     }
 
+    // MODIFIES: this
+    // EFFECTS: increases sequence by one and returns it
     protected int advanceSequence(String text) {
         title.setText(text);
         return sequence++;

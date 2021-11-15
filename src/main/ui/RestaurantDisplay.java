@@ -7,11 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RestaurantDisplay extends JScrollPane {
+    private MainFrame editor;
+    private JComponent parent;
     private Restaurant restaurant;
     private JTextArea main;
 
-    public RestaurantDisplay(Restaurant r) {
+    public RestaurantDisplay(MainFrame editor, JComponent parent, Restaurant r) {
         main = new JTextArea();
+        this.editor = editor;
+        this.parent = parent;
         restaurant = r;
         addMainPane();
     }

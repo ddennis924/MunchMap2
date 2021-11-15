@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 public class RestaurantLocationAdder extends RestaurantEditor {
     String area;
 
+    // EFFECTS: Constructs a restaurantLocationAdder to add a location to editor's selectedR
     public RestaurantLocationAdder(MainFrame e) {
         super(e);
         area = "";
@@ -27,6 +28,8 @@ public class RestaurantLocationAdder extends RestaurantEditor {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a location to editor's selectedR
     private void updateAddress() {
         String address = getString();
         Location location = new Location(area, address);
@@ -35,6 +38,8 @@ public class RestaurantLocationAdder extends RestaurantEditor {
         dispose();
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets area to value in textField
     private void updateArea() {
         area = getString();
         advanceSequence("What is the Address?");

@@ -5,7 +5,6 @@ import model.Restaurant;
 import model.RestaurantList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.rEditors.RestaurantDishAdder;
 import ui.tools.*;
 
 import javax.swing.*;
@@ -35,6 +34,8 @@ public class MainFrame extends JFrame {
     private Map<String, Restaurant> slist;
     private Restaurant selectedR;
 
+    // MODIFIES: this
+    // EFFECTS: constructs a GUI for MunchMap with save/load functionality
     public MainFrame(String title) {
         super(title);
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -46,6 +47,8 @@ public class MainFrame extends JFrame {
         doLoadRestaurantList();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes graphics for this
     private void init() {
         setVisible(true);
         setLayout(new BorderLayout());
@@ -54,6 +57,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    // getters and setters
     public RestaurantList getMainList() {
         return mainList;
     }
@@ -118,6 +122,7 @@ public class MainFrame extends JFrame {
         this.selectedR = selectedR;
     }
 
+    // MODIFIES: this
     // EFFECTS: retrieves mainList from file at JSON_STORE
     private void doLoadRestaurantList() {
         JPanel loadPanel = new JPanel(new GridLayout(5, 2));
@@ -129,11 +134,15 @@ public class MainFrame extends JFrame {
         initLoadTools(loadPanel);
     }
 
+    // MODIFIES: this, loadPanel
+    // EFFECTS: initializes screen to choose between loading save file and new file
     private void initLoadTools(JPanel loadPanel) {
         initLoadTool(loadPanel);
         initNewListTool(loadPanel);
     }
 
+    // MODIFIES: this, loadPanel
+    // EFFECTS: creates new file button
     private void initNewListTool(JPanel loadPanel) {
         JButton newList = new JButton("New List");
         loadPanel.add(newList);
@@ -147,6 +156,8 @@ public class MainFrame extends JFrame {
         });
     }
 
+    // MODIFIES: this, loadPanel
+    // EFFECTS: create load file button
     private void initLoadTool(JPanel loadPanel) {
         JButton load = new JButton("Load Restaurants");
         loadPanel.add(load);
@@ -165,6 +176,7 @@ public class MainFrame extends JFrame {
         });
     }
 
+    // EFFECTS: adds empty space to component
     private void addFiller(JPanel loadPanel) {
         for (int i = 0; i < 4; i++) {
             JPanel filler = new JPanel();
@@ -174,6 +186,8 @@ public class MainFrame extends JFrame {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes main RestaurantList panel and editor
     private void initializeGraphics(JComponent previous) {
         remove(previous);
         addTopMenu();
@@ -183,11 +197,15 @@ public class MainFrame extends JFrame {
         repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds menu bar
     private void addTopMenu() {
         new MenuBar(this);
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: adds Restaurant display panel
     private void addMainPanel() {
         initializeMain();
         JScrollPane p = new JScrollPane(main);
@@ -201,6 +219,8 @@ public class MainFrame extends JFrame {
         addSelectionTools(mainPane);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes main
     private void initializeMain() {
         main = new JTextArea();
         main.setEditable(false);
@@ -208,6 +228,8 @@ public class MainFrame extends JFrame {
         main.setForeground(TEXT_COLOR);
     }
 
+    // MODIFIES: mainPane
+    // EFFECTS: adds selection tools to mainPane
     private void addSelectionTools(JPanel mainPane) {
         JPanel toolArea = new JPanel(new GridLayout(4,1));
         toolArea.setBackground(MAIN_COLOR);
@@ -218,6 +240,8 @@ public class MainFrame extends JFrame {
         new AddDishTool(this, toolArea);
     }
 
+    // MODIFIES: this
+    // EFFECTS: if selectedR is null, displays no restaurants exist, otherwise displays the restaurant in main
     private void printRestaurant() {
         main.setText(null);
         if (selectedR == null) {
@@ -243,6 +267,8 @@ public class MainFrame extends JFrame {
         }
     }
 
+    // MODIFIES: mainPane
+    // EFFECTS: adds mainList to mainPane and initializes list display
     private void addList(JPanel mainPane) {
         JList rlist = new JList(printRestaurants(mainList));
         rlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -263,6 +289,8 @@ public class MainFrame extends JFrame {
         });
     }
 
+    // MODIFIES: this
+    // EFFECTS: clears rlistModel and fills it with Restaurants in list, then returns it
     public ListModel printRestaurants(RestaurantList list) {
         rlistModel.clear();
         for (Restaurant r : list.getRestaurants()) {
@@ -286,6 +314,8 @@ public class MainFrame extends JFrame {
         return des;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds list tools to this
     private void addListTools() {
         JPanel toolArea = new JPanel();
         toolArea.setLayout(new GridLayout(0,1));
@@ -299,11 +329,15 @@ public class MainFrame extends JFrame {
         new SaveTool(this, toolArea);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets selectedR to r
     public void setRestaurant(Restaurant r) {
         selectedR = r;
         printRestaurant();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds r to mainList
     public void addRestaurant(Restaurant r) {
         mainList.addRestaurant(r);
         String des = printRestaurantMinimal(r);
@@ -311,11 +345,14 @@ public class MainFrame extends JFrame {
         rlistModel.addElement(des);
     }
 
+    // MODIFIES: this
+    // EFFECTS: reprints mainList
     public void updateRestaurantList() {
         rlistModel.clear();
         printRestaurants(mainList);
     }
 
+    // EFFECTS: saves mainList to file
     public void save() {
         try {
             jsonWriter.open();

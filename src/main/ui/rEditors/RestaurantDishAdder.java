@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 
 public class RestaurantDishAdder extends RestaurantEditor {
 
+    // EFFECTS: Constructs a RestaurantDishAdder that adds a dish to cuisine editor's selectedR
     public RestaurantDishAdder(MainFrame e) {
         super(e);
     }
