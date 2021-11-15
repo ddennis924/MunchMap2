@@ -1,7 +1,7 @@
 package ui.tools;
 
 import ui.MainFrame;
-import ui.rEditors.RestaurantVisitor;
+import ui.editors.RestaurantVisitor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,11 +1,10 @@
-package ui.rEditors;
+package ui.editors;
 
 import model.Cuisine;
 import model.Location;
 import model.Restaurant;
 import ui.MainFrame;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 

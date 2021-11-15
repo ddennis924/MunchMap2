@@ -1,8 +1,7 @@
 package ui.tools;
 
 import ui.MainFrame;
-import ui.rEditors.RestaurantCreator;
-import ui.rEditors.RestaurantLocationAdder;
+import ui.editors.RestaurantLocationAdder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

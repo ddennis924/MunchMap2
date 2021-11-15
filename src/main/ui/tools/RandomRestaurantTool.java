@@ -1,11 +1,9 @@
 package ui.tools;
 
 import ui.MainFrame;
-import ui.rEditors.RandomRestaurantSelector;
-import ui.rEditors.RestaurantCreator;
+import ui.editors.RandomRestaurantSelector;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;

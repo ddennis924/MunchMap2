@@ -1,4 +1,4 @@
-package ui.rEditors;
+package ui.editors;
 
 import model.Location;
 import ui.MainFrame;

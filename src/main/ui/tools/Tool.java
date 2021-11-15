@@ -3,7 +3,6 @@ package ui.tools;
 import ui.MainFrame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public abstract class Tool {

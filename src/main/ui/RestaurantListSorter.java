@@ -1,6 +1,6 @@
 package ui;
 
-import ui.rEditors.RestaurantCuisineSelector;
+import ui.editors.RestaurantCuisineSelector;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
