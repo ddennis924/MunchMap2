@@ -134,7 +134,7 @@ public class RestaurantCreator extends RestaurantEditor {
     // EFFECTS: sets newRestaurant's location with area and address and advances sequence
     private void updateAddress(Restaurant newRestaurant, String area) {
         String address = getString();
-        Location location = new Location(area, address);
+        Location location = new Location(address, area);
         newRestaurant.addLocation(location);
         advanceSequence("What is the Cuisine?");
     }

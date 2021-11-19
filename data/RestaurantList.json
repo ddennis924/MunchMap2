@@ -131,13 +131,25 @@
         },
         {
             "visits": 0,
-            "ethnicity": "poo",
-            "name": "poo",
-            "locations": [{
-                "area": "poo",
-                "address": "poo"
-            }],
-            "dishes": []
+            "ethnicity": "FastFood",
+            "name": "Tim Hortons",
+            "locations": [
+                {
+                    "area": "UBC",
+                    "address": "123 Main mall"
+                },
+                {
+                    "area": "richmond centre",
+                    "address": "Richmon"
+                }
+            ],
+            "dishes": [
+                {"dish": "Coffee"},
+                {"dish": "Bagel"},
+                {"dish": "Donuts"},
+                {"dish": "Timbits"},
+                {"dish": "Chili"}
+            ]
         }
     ]
 }

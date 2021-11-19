@@ -7,12 +7,15 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.tools.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -125,27 +128,35 @@ public class MainFrame extends JFrame {
     // MODIFIES: this
     // EFFECTS: retrieves mainList from file at JSON_STORE
     private void doLoadRestaurantList() {
-        JPanel loadPanel = new JPanel(new GridLayout(5, 2));
-        add(loadPanel, BorderLayout.CENTER);
+        JPanel loadPanel = new JPanel(new GridBagLayout());
+        add(loadPanel);
         loadPanel.setPreferredSize(new Dimension(WIDTH, 100));
-        loadPanel.setBackground(MAIN_COLOR);
+        loadPanel.setBackground(new Color(18, 19, 21));
         loadPanel.setForeground(TEXT_COLOR);
-        addFiller(loadPanel);
         initLoadTools(loadPanel);
     }
 
     // MODIFIES: this, loadPanel
     // EFFECTS: initializes screen to choose between loading save file and new file
     private void initLoadTools(JPanel loadPanel) {
+        addFiller(loadPanel);
         initLoadTool(loadPanel);
         initNewListTool(loadPanel);
+        revalidate();
+        repaint();
     }
 
     // MODIFIES: this, loadPanel
     // EFFECTS: creates new file button
     private void initNewListTool(JPanel loadPanel) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.weighty = 1;
+        c.weightx = 1;
         JButton newList = new JButton("New List");
-        loadPanel.add(newList);
+        loadPanel.add(newList, c);
         newList.setForeground(new Color(224, 166, 166));
         newList.addActionListener(new ActionListener() {
             @Override
@@ -159,8 +170,14 @@ public class MainFrame extends JFrame {
     // MODIFIES: this, loadPanel
     // EFFECTS: create load file button
     private void initLoadTool(JPanel loadPanel) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 2;
+        c.weighty = 1;
+        c.weightx = 1;
         JButton load = new JButton("Load Restaurants");
-        loadPanel.add(load);
+        loadPanel.add(load, c);
         load.setForeground(new Color(185, 213, 186));
         load.addActionListener(new ActionListener() {
             @Override
@@ -178,12 +195,22 @@ public class MainFrame extends JFrame {
 
     // EFFECTS: adds empty space to component
     private void addFiller(JPanel loadPanel) {
-        for (int i = 0; i < 4; i++) {
-            JPanel filler = new JPanel();
-            filler.setBackground(MAIN_COLOR);
-            loadPanel.add(filler);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 2;
+        try {
+            BufferedImage imageB = ImageIO.read(new File("./src/munchmapimage2.png"));
+            JLabel image =
+                    new JLabel(new ImageIcon(imageB.getScaledInstance(WIDTH, HEIGHT - 100, Image.SCALE_DEFAULT)));
+            image.setPreferredSize(new Dimension(WIDTH - 100, HEIGHT - 100));
+            loadPanel.add(image, c);
+        } catch (IOException e) {
+            System.out.println("Image not found");
         }
-
     }
 
     // MODIFIES: this

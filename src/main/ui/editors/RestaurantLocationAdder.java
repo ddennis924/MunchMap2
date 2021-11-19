@@ -32,7 +32,7 @@ public class RestaurantLocationAdder extends RestaurantEditor {
     // EFFECTS: adds a location to editor's selectedR
     private void updateAddress() {
         String address = getString();
-        Location location = new Location(area, address);
+        Location location = new Location(address, area);
         editor.getSelectedR().addLocation(location);
         editor.setRestaurant(restaurant);
         dispose();
