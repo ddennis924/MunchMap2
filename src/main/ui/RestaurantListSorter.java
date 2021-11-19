@@ -14,7 +14,7 @@ public class RestaurantListSorter implements ItemListener {
     MainFrame editor;
     List<JCheckBoxMenuItem> tools;
 
-    // EFFECTS: Creates a gui for sorting restaurants
+    // EFFECTS: Creates a gui for sorting restaurants with a list of tools
     public RestaurantListSorter(MainFrame editor, JMenuBar parent) {
         this.editor = editor;
         menu = new JMenu("Sort Menu");
@@ -74,6 +74,8 @@ public class RestaurantListSorter implements ItemListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: deselects all checkboxes expect the one with the givne text s
     private void deselectAllExcept(String s) {
         for (JCheckBoxMenuItem i : tools) {
             if (!i.getText().equals(s)) {

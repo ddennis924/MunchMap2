@@ -193,7 +193,8 @@ public class MainFrame extends JFrame {
         });
     }
 
-    // EFFECTS: adds empty space to component
+    // MODIFIES: loadPanel
+    // EFFECTS: adds image to loadPanel
     private void addFiller(JPanel loadPanel) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
