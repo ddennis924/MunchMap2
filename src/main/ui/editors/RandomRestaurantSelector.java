@@ -27,11 +27,12 @@ public class RandomRestaurantSelector extends RestaurantEditor {
             title.setText("What are we feeling like today?");
             textField.setVisible(false);
             JPanel options = new JPanel(new GridLayout(0, 4));
+            options.setBackground(MainFrame.MAIN_COLOR);
             add(options, BorderLayout.SOUTH);
-            initRandom(options, "I have a specific dish", "What is the dish?", 1);
-            initRandom(options, "I have a cuisine", "What is the cuisine?", 2);
-            initRandom(options, "By rating", "What is the rating?", 3);
-            initRandom(options, "By Price", "What is the price?", 4);
+            initRandom(options, "Dish", "What is the dish?", 1);
+            initRandom(options, "Cuisine", "What is the cuisine?", 2);
+            initRandom(options, "Rating", "What is the rating?", 3);
+            initRandom(options, "Price", "What is the price?", 4);
         } else if (sequence == 1) {
             doRandomDish();
         } else if (sequence == 2) {
@@ -79,6 +80,7 @@ public class RandomRestaurantSelector extends RestaurantEditor {
     // EFFECTS: displays all the possible options to randomly select by
     private void initRandom(JPanel options, String s, String s2, int i) {
         JButton price = new JButton(s);
+        price.setForeground(MainFrame.TEXT_COLOR);
         options.add(price);
         price.addActionListener(new ActionListener() {
             @Override

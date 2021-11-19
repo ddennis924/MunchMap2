@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
     public static final int HEIGHT = 550;
     public static final Color MAIN_COLOR = new Color(47,49,54);
     public static final Color SECOND_COLOR = new Color(55,57,63);
-    public static final Color TEXT_COLOR = new Color(198,199,201);
+    public static final Color TEXT_COLOR = new Color(231, 231, 199);
     private static final String JSON_STORE = "./data/RestaurantList.json";
     private RestaurantList mainList; // main list of all restaurants
     private RestaurantList filteredList; // list that stores restaurants based on filter
