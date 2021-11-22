@@ -1,4 +1,4 @@
-package ui.tools;
+package ui;
 
 import model.Restaurant;
 import ui.MainFrame;

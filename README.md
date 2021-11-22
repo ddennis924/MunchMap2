@@ -41,3 +41,24 @@ based on user preferences, eliminating the arduous process of choosing a place t
 - As a user, I want to be able to randomly view a restaurant above a specific rating or price
 - As a user, I want to be able to automatically save my Restaurants to file after pressing q to quit
 - as a user, I want to be able to load my Restaurants from my file
+
+## Phase 4: Task 2
+
+Loaded Dennis from file: ./data/RestaurantList.json <br />
+Restaurant Samsoonie added on Fri Nov 19 14:28:45 PST 2021  <br />
+Restaurant McDonald's added on Fri Nov 19 14:28:45 PST 2021 <br />
+Restaurant So Hyang added on Fri Nov 19 14:28:45 PST 2021 <br />
+Restaurant Nando's added on Fri Nov 19 14:28:45 PST 2021 <br />
+Restaurant Gmen added on Fri Nov 19 14:28:45 PST 2021 <br />
+Restaurant Kokoro added on Fri Nov 19 14:28:45 PST 2021 <br />
+Restaurant A&W added on Fri Nov 19 14:28:45 PST 2021 <br />
+Restaurant Popeye's added on Fri Nov 19 14:28:45 PST 2021 <br />
+Restaurant Tim Hortons added on Fri Nov 19 14:28:45 PST 2021 <br />
+
+Process finished with exit code 0
+
+## Phase 4: Task 3
+
+Looking back, if I had known about certain design concepts learned in class, some refactoring I would want to perform include:
+- Refactor the relationships between Mainframe, RestaurantList, and Restaurant to remove an association and reduce coupling
+- 

@@ -78,6 +78,7 @@ public class RestaurantList implements Writable {
         if (!restaurants.contains(r)) {
             restaurants.add(r);
         }
+        EventLog.getInstance().logEvent(new Event("Restaurant " + r.getName() + " added"));
     }
 
     // MODIFIES: this
@@ -86,6 +87,7 @@ public class RestaurantList implements Writable {
     public boolean removeRestaurant(String nm) {
         if (containsRestaurant(nm)) {
             restaurants.remove(getRestaurant(nm));
+            EventLog.getInstance().logEvent(new Event("Restaurant " + nm + " removed"));
             return true;
         } else {
             return false;
@@ -285,5 +287,11 @@ public class RestaurantList implements Writable {
             jsonArray.put(r.toJson());
         }
         return jsonArray;
+    }
+
+    public void printRestaurantLog(EventLog elog) {
+        for (Event e : elog) {
+            System.out.println(e.getDescription() + " on " + e.getDate());
+        }
     }
 }

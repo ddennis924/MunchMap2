@@ -21,7 +21,11 @@ public class AddLocationTool extends Tool {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RestaurantLocationAdder(editor);
+                if (editor.getSelectedR() != null) {
+                    new RestaurantLocationAdder(editor);
+                } else {
+                    editor.getMain().setText("Please select a restaurant");
+                }
             }
         });
     }

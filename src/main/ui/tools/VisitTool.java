@@ -21,7 +21,11 @@ public class VisitTool extends Tool {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RestaurantVisitor(editor);
+                if (editor.getSelectedR() != null) {
+                    new RestaurantVisitor(editor);
+                } else {
+                    editor.getMain().setText("Please select a restaurant");
+                }
             }
         });
     }

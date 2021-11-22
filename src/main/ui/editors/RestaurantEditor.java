@@ -17,6 +17,7 @@ public abstract class RestaurantEditor extends JFrame implements ActionListener 
     protected Restaurant restaurant;
     protected int sequence;
 
+    // REQUIRES: editor.getSelectedR != null
     // EFFECTS: constructs a RestaurantEditor gui with a given MainFrame editor that operates on editor's mainList
     public RestaurantEditor(MainFrame e) {
         this.editor = e;

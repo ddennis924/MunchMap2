@@ -21,7 +21,11 @@ public class AddDishTool extends Tool {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RestaurantDishAdder(editor);
+                if (editor.getSelectedR() != null) {
+                    new RestaurantDishAdder(editor);
+                } else {
+                    editor.getMain().setText("Please select a restaurant");
+                }
             }
         });
     }

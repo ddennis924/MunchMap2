@@ -20,10 +20,14 @@ public class RemoveRestaurantTool extends Tool {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Restaurant selectedR = editor.getSelectedR();
-                editor.getMainList().removeRestaurant(selectedR.getName());
-                editor.getSlist().remove(editor.printRestaurantMinimal(selectedR), selectedR);
-                editor.getRlistModel().removeElement(editor.printRestaurantMinimal(selectedR));
+                if (editor.getSelectedR() != null) {
+                    Restaurant selectedR = editor.getSelectedR();
+                    editor.getMainList().removeRestaurant(selectedR.getName());
+                    editor.getSlist().remove(editor.printRestaurantMinimal(selectedR), selectedR);
+                    editor.getRlistModel().removeElement(editor.printRestaurantMinimal(selectedR));
+                } else {
+                    editor.getMain().setText("Please select a restaurant");
+                }
             }
         });
     }
