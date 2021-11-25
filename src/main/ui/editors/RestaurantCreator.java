@@ -8,6 +8,7 @@ import ui.MainFrame;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+// Represents frame that creates a Restaurant and adds it to MainFrame
 public class RestaurantCreator extends RestaurantEditor {
     private String area;
     private String cuisine;

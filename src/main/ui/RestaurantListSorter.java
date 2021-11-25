@@ -9,6 +9,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents gui that sorts mainList in MainFrame based on criteria
 public class RestaurantListSorter implements ItemListener {
     JMenu menu;
     MainFrame editor;

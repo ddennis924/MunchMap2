@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents frame that randomly selects a Restaurant from the MainFrame
 public class RandomRestaurantSelector extends RestaurantEditor {
     String location;
 

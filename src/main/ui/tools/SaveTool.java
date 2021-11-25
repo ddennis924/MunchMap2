@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents gui class that saves mainframeList to file
 public class SaveTool extends Tool {
 
     // EFFECTS: constructs a save button that saves editor's mainList

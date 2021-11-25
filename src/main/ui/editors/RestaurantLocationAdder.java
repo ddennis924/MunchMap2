@@ -5,6 +5,7 @@ import ui.MainFrame;
 
 import java.awt.event.ActionEvent;
 
+// Represents frame that adds a location to selectedR in MainFrame
 public class RestaurantLocationAdder extends RestaurantEditor {
     String area;
 

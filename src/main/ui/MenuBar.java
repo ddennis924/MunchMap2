@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents a menu bar for MainFrame
 public class MenuBar {
     JMenuBar menuBar;
     MainFrame editor;

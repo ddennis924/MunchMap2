@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+// Represents gui for a RestaurantList editor
 public class MainFrame extends JFrame {
     public static final int WIDTH = 450;
     public static final int HEIGHT = 550;

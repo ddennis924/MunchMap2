@@ -4,6 +4,7 @@ import ui.MainFrame;
 
 import java.awt.event.ActionEvent;
 
+// Represents frame that sorts restaurants in MainFrame by cuisine
 public class RestaurantCuisineSelector extends RestaurantEditor {
 
     // EFFECTS: Constructs a RestaurantCuisineSelector gui that sorts editor's mainList by cuisine

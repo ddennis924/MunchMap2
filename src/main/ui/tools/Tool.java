@@ -5,6 +5,7 @@ import ui.MainFrame;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
+// Represents guis who edits Mainframe
 public abstract class Tool {
     protected JButton button;
     protected MainFrame editor;

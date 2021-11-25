@@ -5,6 +5,7 @@ import ui.MainFrame;
 
 import java.awt.event.ActionEvent;
 
+// Represents frame that adds a dish to selectedR in MainFrame
 public class RestaurantDishAdder extends RestaurantEditor {
 
     // EFFECTS: Constructs a RestaurantDishAdder that adds a dish to cuisine editor's selectedR

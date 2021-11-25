@@ -10,6 +10,7 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+// Represent frames who edit a restaurant in a MainFrame
 public abstract class RestaurantEditor extends JFrame implements ActionListener {
     protected MainFrame editor;
     protected JTextField textField;

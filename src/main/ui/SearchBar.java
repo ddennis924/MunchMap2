@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+// Represents a search bar for searching restaurants in mainList of a MainFrame
 public class SearchBar implements ActionListener {
     protected JTextField textField;
     protected JComponent parent;

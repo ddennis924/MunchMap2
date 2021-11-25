@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+// Represents gui that accesses restaurantDishAdder
 public class AddDishTool extends Tool {
 
     // EFFECTS: Constructs an AddDishTool that calls RestaurantDishAdder

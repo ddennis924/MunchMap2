@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents gui class that removes Restaurant from mainList in Mainframe
 public class RemoveRestaurantTool extends Tool {
 
     // EFFECTS: constructs a removeRestaurantTool that removes a restaurant from editor's mainList

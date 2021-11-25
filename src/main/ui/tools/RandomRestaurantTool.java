@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+// Represents gui class that accesses RandomRestaurantSelector
 public class RandomRestaurantTool extends Tool {
 
     // EFFECTS: Constructs a RandomRestaurantTool that calls RandomRestaurantSelector

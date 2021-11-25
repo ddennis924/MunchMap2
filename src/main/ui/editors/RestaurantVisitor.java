@@ -4,6 +4,7 @@ import ui.MainFrame;
 
 import java.awt.event.ActionEvent;
 
+// Represents frame that updates visits of selectedR in MainFrame
 public class RestaurantVisitor extends RestaurantEditor {
     private double rating;
     private double price;
