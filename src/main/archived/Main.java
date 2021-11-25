@@ -1,4 +1,6 @@
-package ui;
+package archived;
+
+import archived.MunchMapApp;
 
 import java.io.FileNotFoundException;
 

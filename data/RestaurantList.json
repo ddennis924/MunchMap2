@@ -69,35 +69,6 @@
             "dishes": [{"dish": "Chicken"}]
         },
         {
-            "visits": 6,
-            "ethnicity": "Japanese",
-            "price": 15,
-            "review": "no review found",
-            "name": "Gmen",
-            "rating": 8,
-            "locations": [{
-                "area": "Richmond",
-                "address": "123 Alexandra Road"
-            }],
-            "dishes": [{"dish": "Ramen"}]
-        },
-        {
-            "visits": 0,
-            "ethnicity": "Japanese",
-            "name": "Kokoro",
-            "locations": [
-                {
-                    "area": "UBC",
-                    "address": "123 Main mall"
-                },
-                {
-                    "area": "Vancouver",
-                    "address": "5695 Victoria Dr"
-                }
-            ],
-            "dishes": [{"dish": "Mazesoba"}]
-        },
-        {
             "visits": 0,
             "ethnicity": "FastFood",
             "name": "A&W",
@@ -114,41 +85,22 @@
             "dishes": [{"dish": "Burgers"}]
         },
         {
-            "visits": 4,
-            "ethnicity": "FastFood",
-            "price": 10,
-            "review": "no review found",
-            "name": "Popeye's",
-            "rating": 7.5,
-            "locations": [{
-                "area": "Richmond",
-                "address": "1234 Cooney Road"
-            }],
-            "dishes": [
-                {"dish": "Fried Chicken"},
-                {"dish": "Popcorn Shrimp"}
-            ]
-        },
-        {
             "visits": 0,
             "ethnicity": "FastFood",
-            "name": "Tim Hortons",
+            "name": "Wendy's",
             "locations": [
                 {
                     "area": "UBC",
-                    "address": "123 Main mall"
+                    "address": "432 Main mall"
                 },
                 {
-                    "area": "richmond centre",
-                    "address": "Richmon"
+                    "area": "Richmond",
+                    "address": "412 No 3 road"
                 }
             ],
             "dishes": [
-                {"dish": "Coffee"},
-                {"dish": "Bagel"},
-                {"dish": "Donuts"},
-                {"dish": "Timbits"},
-                {"dish": "Chili"}
+                {"dish": "burger"},
+                {"dish": "fries"}
             ]
         }
     ]

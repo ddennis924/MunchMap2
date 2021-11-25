@@ -1,4 +1,4 @@
-package ui;
+package archived;
 
 import model.Cuisine;
 import model.Location;

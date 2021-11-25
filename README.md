@@ -61,4 +61,6 @@ Process finished with exit code 0
 
 Looking back, if I had known about certain design concepts learned in class, some refactoring I would want to perform include:
 - Refactor the relationships between Mainframe, RestaurantList, and Restaurant to remove an association and reduce coupling
-- 
+- Refactor the relationships between RestaurantEditor, MainFrame, and Restaurant to reduce coupling
+- Refactor the RestaurantList display in Mainframe with a class focussed on displaying the Restaurants to increase cohesion 
+- Refactor the RestaurantDisplay in Mainframe and RestaurantList with an observer pattern to reduce coupling
